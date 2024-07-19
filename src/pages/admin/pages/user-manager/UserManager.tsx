@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 import "./user-manager.scss";
-import { User } from '@/store/slices/user.slice';
-import apis from '@/apis';
-import { Table } from 'react-bootstrap';
-
-
+import { User } from "@/store/slices/user.slice";
+import apis from "@/apis";
+import { Table } from "react-bootstrap";
 
 export default function UserManager() {
-
   const [users, setUsers] = useState<User[]>([]);
   useEffect(() => {
     apis.user.findAll().then((res) => {
@@ -16,8 +13,24 @@ export default function UserManager() {
       }
     });
   }, []);
-  console.log(users);
-  
+
+  function updateStatus(userId: number) {
+    apis.user
+      .updateStatus(userId)
+      .then((res) => {
+        console.log(res);
+        setUsers(
+          users.map((user) =>
+            user.id === userId ? { ...user, status: !user.status } : user
+          )
+        );
+      })
+      .catch((err) => {
+        console.error(err);
+        // Xử lý lỗi, có thể hiển thị thông báo cho người dùng
+      });
+  }
+
   return (
     <>
       <Table striped bordered hover>
@@ -56,7 +69,7 @@ export default function UserManager() {
                 />
               </td>
               <td>{user.roles[0].roleName}</td>
-              <td>{user.status === 1 ? "Hoạt động" : "Cấm"}</td>
+              <td>{user.status ? "Hoạt động" : "Cấm"}</td>
               <td>
                 {!user.deleted ? "Đã xác thực mail" : "Chưa xác thực mail"}
               </td>
@@ -64,9 +77,16 @@ export default function UserManager() {
               <td>{new Date(user.updatedAt).toLocaleDateString("vi-VN")}</td>
               <button>Manager</button>
               <td>
-                {/* Thêm các công cụ quản lý người dùng ở đây */}
                 <button>Sửa</button>
-                <button>Xóa</button>
+                {users.map((user) => (
+                  <button
+                    key={user.id}
+                    onClick={() => updateStatus(user.id)}
+                    className={`btn btn-${user.status ? "success" : "danger"}`}
+                  >
+                    {user.status ? "Block" : "Unlock"}
+                  </button>
+                ))}
               </td>
             </tr>
           ))}

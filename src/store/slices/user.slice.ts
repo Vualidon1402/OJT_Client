@@ -24,7 +24,7 @@ export interface User {
   point?: number;
   roles: Role[];
   permission?: string;
-  status: number;
+  status: boolean;
   deleted: boolean;
   createdAt: string;
   updatedAt: string;
