@@ -1,0 +1,30 @@
+.navbar {
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  
+
+
+ flex-wrap: wrap;
+  padding: 10px 20px;
+  justify-content: space-around !important;
+
+
+  &__announcement {
+    font-size: 14px;
+
+    a {
+      color: #fff;
+      text-decoration: underline;
+    }
+  }
+
+  &__language {
+    select {
+      background-color: transparent;
+      color: #fff;
+      border: none;
+    }
+  }
+}
+
