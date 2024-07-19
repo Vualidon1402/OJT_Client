@@ -13,36 +13,33 @@ export interface CategoryState {
     data: Category[] | null;
 }
 
-let initState: CategoryState  = {
+const initState: CategoryState  = {
     data: null
 }
 
 
-let categorySlice = createSlice({
-    name: "category",
-    initialState: initState,
-    reducers: {
-        add: (state, action) => {
-            state.data?.push(action.payload);
-        }
+const categorySlice = createSlice({
+  name: "category",
+  initialState: initState,
+  reducers: {
+    add: (state, action) => {
+      state.data?.push(action.payload);
     },
-    extraReducers: (builder) => {
-        builder.addCase(findAllThunk.fulfilled, (state, action) => {
-            state.data = action.payload;
-        })
-    }
-})
+  },
+  extraReducers: (builder) => {
+    builder.addCase(findAllThunk.fulfilled, (state, action) => {
+      state.data = action.payload;
+    });
+  },
+});
 
-let findAllThunk = createAsyncThunk(
-    'category/findAllThunk',
-    async () => {
-        let res = await api.category.findAll();
-        return res.data;
-    }
-)
+const findAllThunk = createAsyncThunk("category/findAllThunk", async () => {
+  const res = await api.category.findAll();
+  return res.data;
+});
 
-export let categoryReducer = categorySlice.reducer;
-export let categoryAction = {
-    ...categorySlice.actions,
-    findAllThunk
+export const categoryReducer = categorySlice.reducer;
+export const categoryAction = {
+  ...categorySlice.actions,
+  findAllThunk,
 };
