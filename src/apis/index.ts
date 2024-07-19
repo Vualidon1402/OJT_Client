@@ -1,6 +1,10 @@
+
 import './axios.instance'
-import { category } from './modules/category'
+import { category } from './modules/category';
+import { userApi } from "./modules/user";
 
 export default {
-    category: category
+    category: category,
+    user: userApi,
 }
+

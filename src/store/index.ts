@@ -5,7 +5,7 @@ export type StoreType = {
     categoryStore: CategoryState
 }
 
-let RootReducer = combineReducers({
+const RootReducer = combineReducers({
     categoryStore: categoryReducer,
 })
 
