@@ -1,5 +1,5 @@
-import Footer from '@/pages/home/pages/components/footer/Footer';
-import Header from '@/pages/home/pages/components/header/Header';
+import Footer from '@pages/home/pages/components/footer/Footer';
+import Header from '@pages/home/pages/components/header/Header';
 import React from 'react'
 import { Outlet } from 'react-router-dom';
 import './home.scss';

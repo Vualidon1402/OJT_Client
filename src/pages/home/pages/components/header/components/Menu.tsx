@@ -4,8 +4,6 @@ import {
   HeartOutlined,
   ShoppingCartOutlined,
   UserOutlined,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  SearchOutlined,
 } from "@ant-design/icons";
 import "./Menu.scss";
 
