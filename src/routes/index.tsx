@@ -1,5 +1,4 @@
 
-import React from 'react'
 //Admin
 import OrderManager from '@/pages/admin/pages/order-manager/OrderManager';
 import ProductManager from '@/pages/admin/pages/product-manager/ProductManager';
