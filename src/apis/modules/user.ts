@@ -8,4 +8,7 @@ export const userApi = {
   updateStatus: (id: number) => {
     return axios.put(`${import.meta.env.VITE_SV}/users/update/${id}`);
   },
+  findByUserName: (userName: string) => {
+    return axios.get(`${import.meta.env.VITE_SV}/users/findByUserName/${userName}`);
+  },
 };
