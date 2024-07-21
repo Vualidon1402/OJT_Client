@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 export const userApi = {
   findAll: () => {
     return axios.get(`${import.meta.env.VITE_SV}/users/findAll`);
@@ -9,6 +8,17 @@ export const userApi = {
     return axios.put(`${import.meta.env.VITE_SV}/users/update/${id}`);
   },
   findByUserName: (userName: string) => {
-    return axios.get(`${import.meta.env.VITE_SV}/users/findByUserName/${userName}`);
+    return axios.get(
+      `${import.meta.env.VITE_SV}/users/findByUserName/${userName}`
+    );
+  },
+  sortUser: (sort: string) => {
+    return axios.get(`${import.meta.env.VITE_SV}/users/sort?sortType=${sort}`);
+  },
+  findUsers: (page: number, size: number) => {
+    
+    return axios.get(
+      `${import.meta.env.VITE_SV}/users/find?page=${page}&size=${size}`
+    );
   },
 };
