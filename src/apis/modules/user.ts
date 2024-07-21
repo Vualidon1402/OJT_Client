@@ -1,3 +1,4 @@
+import { Roles } from "@/store/slices/user.slice";
 import axios from "axios";
 
 export const userApi = {
@@ -16,9 +17,12 @@ export const userApi = {
     return axios.get(`${import.meta.env.VITE_SV}/users/sort?sortType=${sort}`);
   },
   findUsers: (page: number, size: number) => {
-    
     return axios.get(
       `${import.meta.env.VITE_SV}/users/find?page=${page}&size=${size}`
     );
+  },
+  updateRole: (id: number, role: Roles[]) => {
+    console.log(role, id);
+    return axios.put(`${import.meta.env.VITE_SV}/users/updateRole/${id}`, role);
   },
 };
