@@ -7,37 +7,7 @@ export default function Product() {
       dddddddddd <br />
       dddddddddddd <br />
       ddddddddddddd <br />
-      dddddddd <br /> ddddddddddddddd <br /> ddddddddd <br />
-      Productxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ddddddddddd <br />
-      dddddddddd <br />
-      dddddddddddd <br />
-      ddddddddddddd <br />
-      dddddddd <br /> ddddddddddddddd <br /> ddddddddd <br />
-      Productxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ddddddddddd <br />
-      dddddddddd <br />
-      dddddddddddd <br />
-      ddddddddddddd <br />
-      dddddddd <br /> ddddddddddddddd <br /> ddddddddd <br />
-      Productxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ddddddddddd <br />
-      dddddddddd <br />
-      dddddddddddd <br />
-      ddddddddddddd <br />
-      dddddddd <br /> ddddddddddddddd <br /> ddddddddd <br />
-      Productxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ddddddddddd <br />
-      dddddddddd <br />
-      dddddddddddd <br />
-      ddddddddddddd <br />
-      dddddddd <br /> ddddddddddddddd <br /> ddddddddd <br />
-      Productxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ddddddddddd <br />
-      dddddddddd <br />
-      dddddddddddd <br />
-      ddddddddddddd <br />
-      dddddddd <br /> ddddddddddddddd <br /> ddddddddd <br />
-      Productxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ddddddddddd <br />
-      dddddddddd <br />
-      dddddddddddd <br />
-      ddddddddddddd <br />
-      dddddddd <br /> ddddddddddddddd <br /> ddddddddd <br />
+      dddddddd <br /> ddddddddddddddd <br /> 
     </div>
   );
 }

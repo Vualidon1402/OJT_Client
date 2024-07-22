@@ -1,18 +1,37 @@
 .app-menu {
   display: flex;
+  flex-wrap: wrap; // Allow items to wrap in smaller screens
   align-items: center;
   background: #fff;
-  padding: 0 200px;
+  padding: 0 20px; // Reduced padding for smaller screens
+
+  @media (min-width: 768px) {
+    padding: 0 200px; // Original padding for larger screens
+  }
+
+  .ant-menu-item {
+    margin-right: 20px;
+  }
 
   &__logo {
-    font-size: 30px;
+    font-size: 20px; // Smaller font size for smaller screens
     font-weight: bold;
-    margin-right: 40px;
+    margin-right: 20px; // Reduced margin for smaller screens
+
+    @media (min-width: 768px) {
+      font-size: 30px; // Original font size for larger screens
+      margin-right: 40px; // Original margin for larger screens
+    }
   }
-  .ant-menu-title-content{
-    font-size: 20px;
+
+  .ant-menu-title-content {
+    font-size: 16px; // Smaller font size for smaller screens
+
+    @media (min-width: 768px) {
+      font-size: 20px; // Original font size for larger screens
+    }
   }
- 
+
   .ant-menu {
     flex: 1;
     border-bottom: none;
@@ -20,9 +39,20 @@
 
   .ant-input-search {
     margin-right: 20px;
+    margin-top: 10px; // Add margin top for smaller screens
+    width: 100%; // Full width for smaller screens
+
+    @media (min-width: 768px) {
+      margin-top: 0; // No margin top for larger screens
+      width: auto; // Auto width for larger screens
+    }
   }
 
   &__icons {
+    width: 100%; // Full width for smaller screens
+    justify-content: space-around; // Space out icons evenly for smaller screens
+    margin-top: 10px; // Add some margin top for smaller screens
+
     .ant-btn {
       border: none;
       background: transparent;
@@ -31,6 +61,35 @@
       &:hover {
         color: #1890ff;
       }
+    }
+
+    @media (min-width: 768px) {
+      width: auto; // Auto width for larger screens
+      justify-content: flex-end; // Align icons to the end for larger screens
+      margin-top: 0; // No margin top for larger screens
+    }
+  }
+}
+
+.ant-menu-horizontal {
+  border-bottom: none !important;
+
+  &::after {
+    display: none !important;
+  }
+
+  .ant-menu-item, .ant-menu-submenu {
+    &::after {
+      display: none !important;
+    }
+
+    &:hover, &-active, &-selected {
+      color: #1890ff !important;
+      background: transparent !important;
+    }
+
+    &-selected {
+      border-bottom: none !important;
     }
   }
 }

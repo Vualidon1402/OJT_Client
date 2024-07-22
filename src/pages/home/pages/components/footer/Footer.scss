@@ -1,9 +1,7 @@
-
-
 .footer {
   background-color: $primary-color;
   color: $text-color;
-  padding: 40px 201px;
+  padding: 40px 20px; // Adjusted padding for smaller screens
 
   &-content {
     display: flex;
@@ -75,9 +73,39 @@
   }
 }
 
-.copyright {
-  text-align: center;
-  margin-top: 40px;
-  border-top: 1px solid $border-color;
-  padding-top: 20px;
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-section {
+    margin-right: 0;
+    margin-bottom: 20px; // Add space between sections on smaller screens
+  }
+
+  .email-input, .social-icons, .app-stores {
+    justify-content: center;
+  }
+
+  .app-stores img {
+    margin: 0 5px; // Reduce space between app store icons on smaller screens
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 20px 10px; // Further reduce padding for very small screens
+  }
+
+  .social-icons i {
+    margin-right: 10px; // Reduce space between social icons on smaller screens
+  }
+}
+
+// Adjust copyright section for smaller screens
+@media (max-width: 768px) {
+  .copyright {
+    font-size: 14px; // Optional: Reduce font size for smaller screens
+  }
 }
