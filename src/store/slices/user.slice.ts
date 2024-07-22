@@ -30,6 +30,14 @@ export interface User {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface Register {
+  username: string;
+  password: string;
+  email: string;
+  phone: string;
+
+}
 function createMockUser(): User {
   return {
     id: 1,

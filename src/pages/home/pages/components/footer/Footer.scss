@@ -55,6 +55,10 @@
   height: 100px;
   background-color: $text-color;
   margin-bottom: 10px;
+  img {
+    max-width: 100%; // Đảm bảo ảnh không vượt quá kích thước của div
+    height: auto; // Duy trì tỉ lệ của ảnh
+  }
 }
 
 .app-stores {

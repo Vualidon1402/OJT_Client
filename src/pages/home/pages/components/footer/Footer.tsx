@@ -48,8 +48,13 @@ const Footer: React.FC = () => {
           <h3>Download App</h3>
           <p>Save $3 with App New User Only</p>
           <div className="qr-code">
-            {/* Placeholder for QR code */}
-            <div className="qr-placeholder"></div>
+            <div className="qr-placeholder">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Superqr.svg/800px-Superqr.svg.png"
+                alt=""
+               
+              />
+            </div>
           </div>
           <div className="app-stores">
             <img src="/path-to-google-play.png" alt="Google Play" />
