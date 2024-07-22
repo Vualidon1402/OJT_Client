@@ -4,6 +4,8 @@ import Body from './components/Body';
 import './admin.scss';
 
 export default function Admin() {
+
+  
   return (
     <div id="admin_container">
       <Navbar></Navbar>

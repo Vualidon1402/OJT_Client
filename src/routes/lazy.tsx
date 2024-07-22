@@ -24,7 +24,7 @@ export const lazyFnDelay = (
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(importFunc());
-      }, 2000);
+      }, 1000);
     });
   });
   //const LazyComponent = lazy(importFunc);

@@ -1,21 +1,29 @@
 import React, { useEffect, useState } from "react";
 import "./user-manager.scss";
-import { User } from "@/store/slices/user.slice";
+import { Roles, User } from "@/store/slices/user.slice";
 import apis from "@/apis";
 import { Table } from "react-bootstrap";
 import { Input } from "antd";
+// import { useSelector } from "react-redux";
+// import { StoreType } from "@/store";
+
 
 const { Search } = Input;
 
 export default function UserManager() {
+  // const userStore = useSelector((store: StoreType) => {
+  //   return store.userStore;
+  // });
+
+
   const [page, setPage] = useState(0);
-  const [size, setSize] = useState(2);
+  const [size] = useState(2);
   const [totalPages, setTotalPages] = useState(0);
   const [users, setUsers] = useState<User[]>([]);
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
   const [sortType, setSortType] = useState("asc");
 
-  console.log(setSize);
+ 
   // Lấy danh sách người dùng
   useEffect(() => {
     apis.user.findAll().then((res) => {
@@ -106,6 +114,9 @@ export default function UserManager() {
     setSortType(event.target.value);
   };
 
+  //thay đổi role 
+
+
   return (
     <>
       <Search
@@ -162,7 +173,35 @@ export default function UserManager() {
                     }}
                   />
                 </td>
-                <td>{user.roles[0].roleName}</td>
+                <td>
+                  <select
+                    onChange={(e) => {
+                      const selectedRole = e.target.value as unknown as Roles;
+                      apis.user
+                        .updateRole(user.id, [selectedRole])
+                        .then((res) => {
+                          if (res.status === 200) {
+                            console.log("Update role success");
+                          } else {
+                            console.log("Update role failed");
+                          }
+                        })
+                        .catch((error) => {
+                          console.error(
+                            "Error updating role:",
+                            error.response?.data || error.message
+                          );
+                          // Tùy chọn: Hiển thị thông báo lỗi cho người dùng tại đây
+                        });
+                    }}
+                   
+                  >
+                    <option>{user.roles[0].roleName}</option>
+                    <option value={Roles.ADMIN}>ROLE_ADMIN</option>
+                    <option value={Roles.MANAGER}>ROLE_MANAGER</option>
+                    <option value={Roles.USER}>ROLE_USER</option>
+                  </select>
+                </td>
                 <td>{user.status ? "Hoạt động" : "Cấm"}</td>
                 <td>
                   {!user.deleted ? "Đã xác thực mail" : "Chưa xác thực mail"}
