@@ -6,6 +6,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import "./Menu.scss";
+import { Link } from "react-router-dom";
 
 const { Header } = Layout;
 const { Search } = Input;
@@ -15,10 +16,26 @@ const AppMenu: React.FC = () => {
     <Header className="app-menu">
       <div className="app-menu__logo">Exclusive</div>
       <Menu mode="horizontal" defaultSelectedKeys={["home"]}>
-        <Menu.Item key="home">Home</Menu.Item>
-        <Menu.Item key="contact">Contact</Menu.Item>
-        <Menu.Item key="about">About</Menu.Item>
-        <Menu.Item key="signup">Sign Up</Menu.Item>
+        <Menu.Item key="home" >
+          <Link to="/" style={{ textDecoration: "none" }}>
+            Home
+          </Link>
+        </Menu.Item>
+        <Menu.Item key="contact">
+          <Link to="/contact" style={{ textDecoration: "none" }}>
+            Contact
+          </Link>
+        </Menu.Item>
+        <Menu.Item key="about">
+          <Link to="/about" style={{ textDecoration: "none" }}>
+            About
+          </Link>
+        </Menu.Item>
+        <Menu.Item key="signup">
+          <Link to="/sigup" style={{ textDecoration: "none" }}>
+            Sig Up
+          </Link>
+        </Menu.Item>
       </Menu>
       <Search
         placeholder="What are you looking for?"
