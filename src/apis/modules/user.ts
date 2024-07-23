@@ -1,4 +1,4 @@
-import { Roles } from "@/store/slices/user.slice";
+import { Register, Roles } from "@/store/slices/user.slice";
 import axios from "axios";
 
 export const userApi = {
@@ -24,5 +24,8 @@ export const userApi = {
   updateRole: (id: number, role: Roles[]) => {
     console.log(role, id);
     return axios.put(`${import.meta.env.VITE_SV}/users/updateRole/${id}`, role);
+  },
+  register: (user: Register) => {
+    return axios.post(`${import.meta.env.VITE_SV}/users/register`, user);
   },
 };

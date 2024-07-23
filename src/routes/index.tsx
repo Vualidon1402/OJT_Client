@@ -10,7 +10,8 @@ import { lazyFnDelay } from "./lazy";
 import HeroHeader from "@/pages/home/homePage/HeroHeader";
 import Contact from "@/pages/home/contact/Contact";
 import About from "@/pages/home/about/About";
-import SigUp from "@/pages/home/signup/SigUp";
+
+import SignUpPage from "@/pages/home/signup/SignUpPage";
 
 export default function index() {
   return (
@@ -20,7 +21,7 @@ export default function index() {
           <Route path="" element={<HeroHeader></HeroHeader>} />
           <Route path="/contact" element={<Contact></Contact>} />
           <Route path="/about" element={<About></About>} />
-          <Route path="/sigup" element={<SigUp></SigUp>} />
+          <Route path="/sigup" element={<SignUpPage></SignUpPage>} />
         </Route>
         <Route
           path="/manager"

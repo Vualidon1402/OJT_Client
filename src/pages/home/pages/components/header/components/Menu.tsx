@@ -16,7 +16,7 @@ const AppMenu: React.FC = () => {
     <Header className="app-menu">
       <div className="app-menu__logo">Exclusive</div>
       <Menu mode="horizontal" defaultSelectedKeys={["home"]}>
-        <Menu.Item key="home" >
+        <Menu.Item key="home">
           <Link to="/" style={{ textDecoration: "none" }}>
             Home
           </Link>
@@ -34,6 +34,11 @@ const AppMenu: React.FC = () => {
         <Menu.Item key="signup">
           <Link to="/sigup" style={{ textDecoration: "none" }}>
             Sig Up
+          </Link>
+        </Menu.Item>
+        <Menu.Item key="signin">
+          <Link to="/sigin" style={{ textDecoration: "none" }}>
+            Sig In
           </Link>
         </Menu.Item>
       </Menu>
