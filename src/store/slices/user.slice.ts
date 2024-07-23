@@ -1,3 +1,4 @@
+import apis from "@/apis";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 
@@ -36,29 +37,12 @@ export interface Register {
   password: string;
   email: string;
   phone: string;
+}
+export interface Login {
+  loginId: string;
+  password: string;
+}
 
-}
-function createMockUser(): User {
-  return {
-    id: 1,
-    username: "mockuser",
-    password: "mockpassword",
-    email: "mockuser@example.com",
-    phone: "1234567890",
-    avatar: "https://example.com/avatar.jpg",
-    fullName: "Mock User",
-    point: 100,
-    roles: [
-      { id: 1, roleName: Roles.ADMIN },
-      { id: 2, roleName: Roles.MANAGER },
-    ],
-    permission: "read,write",
-    status: true,
-    deleted: false,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-  };
-}
 export interface UserState {
   data: User | null;
   loading: boolean;
@@ -84,15 +68,15 @@ const userSlice = createSlice({
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     builder.addCase(findDataThunk.rejected, (state, action) => {
       state.data = null;
-      localStorage.removeItem("token");
+      // localStorage.removeItem("token");
       state.loading = false;
     });
   },
 });
 
 const findDataThunk = createAsyncThunk("user/findData", async () => {
-
-  return createMockUser();
+  const res = await apis.user.authen();
+  return res.data;
 });
 
 

@@ -93,3 +93,33 @@
     }
   }
 }
+
+.dropdown-menu {
+  background-color: #f0f0f0;
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+    svg {
+      margin-right: 8px;
+    }
+    &:hover {
+      background-color: #e7e7e7;
+    }
+  }
+}
+.custom-dropdown .dropdown-toggle {
+  background-color: #ffffff; /* Màu xanh dương */
+  color: white; /* Màu chữ trắng */
+  border: none; /* Không có viền */
+}
+
+.custom-dropdown .dropdown-menu {
+  background-color: #ffffff; /* Màu xanh dương cho menu */
+}
+
+.custom-dropdown .dropdown-item {
+  color: rgb(0, 0, 0); /* Màu chữ trắng cho các item */
+  &:hover {
+    background-color: #b23434; /* Màu khi hover */
+  }
+}

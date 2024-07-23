@@ -1,4 +1,4 @@
-import { Register, Roles } from "@/store/slices/user.slice";
+import { Login, Register, Roles } from "@/store/slices/user.slice";
 import axios from "axios";
 
 export const userApi = {
@@ -28,4 +28,10 @@ export const userApi = {
   register: (user: Register) => {
     return axios.post(`${import.meta.env.VITE_SV}/users/register`, user);
   },
+  login: (user: Login) => {
+    return axios.post(`${import.meta.env.VITE_SV}/users/login`, user);
+  },
+  authen: () => {
+    return axios.post(`${import.meta.env.VITE_SV}/users/authen`, {});
+  }
 };

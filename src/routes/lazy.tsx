@@ -36,12 +36,22 @@ export const lazyFnDelay = (
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const lazyFn = (importFunc: any) => {
+
+export const lazyFn = (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  importFunc: any,
+  access: Access = {
+    enable: true,
+  }
+) => {
   const LazyComponent = lazy(importFunc);
 
+  if (!access.enable) {
+    return <FallBack access={access}></FallBack>;
+  }
+
   return (
-    <Suspense fallback={<Spinning></Spinning>}>
+    <Suspense fallback={<>Loading ....</>}>
       <LazyComponent />
     </Suspense>
   );
