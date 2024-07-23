@@ -14,6 +14,15 @@ interface Role {
   id: number;
   roleName: Roles;
 }
+export interface Update {
+  
+  email: string;
+  phone: string;
+  avatar: string;
+  fullName: string;
+
+
+}
 
 export interface User {
   id: number;

@@ -1,5 +1,6 @@
 import axios from "axios";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (axios as any).defaults.headers = {
   "Content-Type": "application/json",
   "Accept": "application/json",

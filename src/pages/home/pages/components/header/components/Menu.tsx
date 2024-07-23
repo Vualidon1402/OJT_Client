@@ -83,7 +83,7 @@ const AppMenu: React.FC = () => {
               <Button icon={<UserOutlined />} />
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item href="#/action-1">
+              <Dropdown.Item href="profile">
                 <UserOutlined /> Manage My Account
               </Dropdown.Item>
               <Dropdown.Item href="#/action-2">

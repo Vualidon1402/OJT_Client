@@ -34,7 +34,9 @@ const LoginPage: React.FC = () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       if (err && err.response && err.response.data) {
+        console.log(err);
         if (err.response.data.fieldErrors) {
+          
           // Nếu có lỗi cụ thể cho từng trường
           setErrorMessages(err.response.data.fieldErrors);
         } else {
