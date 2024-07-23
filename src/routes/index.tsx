@@ -5,23 +5,40 @@ import CategoryManager from "@/pages/admin/pages/category-manager/CategoryManage
 import UserManager from "@/pages/admin/pages/user-manager/UserManager";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { lazyFnDelay } from "./lazy";
+import { lazyFn, lazyFnDelay } from "./lazy";
 
 import HeroHeader from "@/pages/home/homePage/HeroHeader";
-import Contact from "@/pages/home/contact/Contact";
-import About from "@/pages/home/about/About";
 
-import SignUpPage from "@/pages/home/signup/SignUpPage";
 
 export default function index() {
+  
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={lazyFnDelay(() => import("@pages/home/Home"))}>
           <Route path="" element={<HeroHeader></HeroHeader>} />
-          <Route path="/contact" element={<Contact></Contact>} />
-          <Route path="/about" element={<About></About>} />
-          <Route path="/sigup" element={<SignUpPage></SignUpPage>} />
+          <Route
+            path="/contact"
+            element={lazyFnDelay(() => import("@/pages/home/contact/Contact"))}
+          />
+          <Route
+            path="/about"
+            element={lazyFnDelay(() => import("@/pages/home/about/About"))}
+          />
+          <Route
+            path="/sigup"
+            element={lazyFn(() => import("@/pages/home/signup/SignUpPage"), {
+              enable: localStorage.getItem("token") == null,
+              fallBackUrl: "/",
+            })}
+          />
+          <Route
+            path="/sigin"
+            element={lazyFn(() => import("@/pages/home/signup/LoginPage"), {
+              enable: localStorage.getItem("token") == null,
+              fallBackUrl: "/",
+            })}
+          />
         </Route>
         <Route
           path="/manager"
