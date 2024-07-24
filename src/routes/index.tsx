@@ -54,6 +54,7 @@ export default function index() {
         >
           <Route path="order" element={<OrderManager></OrderManager>} />
           <Route path="product" element={<ProductManager></ProductManager>} />
+          
           <Route path="brand" element={<BrandManager></BrandManager>} />
           <Route path="category" element={<CategoryManager></CategoryManager>} />
           <Route path="user" element={<UserManager></UserManager>} />
