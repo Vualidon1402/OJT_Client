@@ -18,6 +18,11 @@ export default function Body() {
     menuTemp.push({ title: "Category", url: "category" });
     menuTemp.push({ title: "Order", url: "order" });
     menuTemp.push({ title: "User", url: "user" });
+    menuTemp.push({ title: "Brand", url: "brand" });
+    menuTemp.push({ title: "Color", url: "color" });
+    menuTemp.push({ title: "Config", url: "config" });
+
+
 
     setMenus(menuTemp);
 
