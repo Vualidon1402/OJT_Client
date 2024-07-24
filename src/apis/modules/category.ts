@@ -6,6 +6,7 @@ export const category = {
         return await axios.get(`${import.meta.env.VITE_SV}/category/findAll`)
     },
     async addCategory(data: Category) {
+        console.log(data)
         return await axios.post(`${import.meta.env.VITE_SV}/category/add`, data)
     },
     async updateCategory(data: Category) {
