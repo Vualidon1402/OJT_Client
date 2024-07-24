@@ -40,6 +40,13 @@ export default function index() {
               fallBackUrl: "/",
             })}
           />
+          <Route
+            path="/profile"
+            element={lazyFn(() => import("@pages/home/pages/components/userLogin/profile/Profile"), {
+              enable: localStorage.getItem("token") != null,
+              fallBackUrl: "/",
+            })}
+          />
         </Route>
         <Route
           path="/manager"

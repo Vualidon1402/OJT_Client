@@ -1,4 +1,4 @@
-import { Login, Register, Roles } from "@/store/slices/user.slice";
+import { Login, Register, Roles, Update } from "@/store/slices/user.slice";
 import axios from "axios";
 
 export const userApi = {
@@ -33,5 +33,20 @@ export const userApi = {
   },
   authen: () => {
     return axios.post(`${import.meta.env.VITE_SV}/users/authen`, {});
-  }
+  },
+  changePassword: (
+    id: number | undefined,
+    password: {
+      oldPassword: string;
+      newPassword: string;
+    }
+  ) => {
+    return axios.put(
+      `${import.meta.env.VITE_SV}/users/changePassword/${id}`,
+      password
+    );
+  },
+  updateProfile: (id: number | undefined, data: Update) => {
+    return axios.put(`${import.meta.env.VITE_SV}/users/updateUser/${id}`, data);
+  },
 };
