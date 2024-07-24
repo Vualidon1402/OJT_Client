@@ -1,6 +1,6 @@
-import { use } from "i18next";
+
 import React, { useEffect, useState } from "react";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 interface Menu {
   title: string;
@@ -21,6 +21,7 @@ export default function Body() {
     menuTemp.push({ title: "Brand", url: "brand" });
     menuTemp.push({ title: "Color", url: "color" });
     menuTemp.push({ title: "Config", url: "config" });
+    menuTemp.push({ title: "Banner", url: "banner" });
 
 
 

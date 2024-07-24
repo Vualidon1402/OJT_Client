@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import apis from "@/apis";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
@@ -64,7 +65,11 @@ const initialState: UserState = {
 const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    updateUserInfo: (state, action) => {
+      state.data = { ...state.data, ...action.payload };
+    },
+  },
   extraReducers: (builder) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     builder.addCase(findDataThunk.pending, (state, action) => {
@@ -89,9 +94,11 @@ const findDataThunk = createAsyncThunk("user/findData", async () => {
 });
 
 
+
 export const userReducer = userSlice.reducer;
 export const userActions = {
   ...userSlice.actions,
   findDataThunk,
+  
 };
 

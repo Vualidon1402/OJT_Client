@@ -2,9 +2,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
 import "./Profile.scss";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { StoreType } from "@/store";
-import {  User } from "@/store/slices/user.slice";
+import {  User, userActions } from "@/store/slices/user.slice";
 import apis from "@/apis";
 import { showToast } from "@/util/toast";
 import { fireBaseFn } from "@/firebase";
@@ -13,11 +13,19 @@ import { fireBaseFn } from "@/firebase";
 
 
 const Profile: React.FC = () => {
+
+  const dispatch = useDispatch();
   const userStore = useSelector((store: StoreType) => {
     return store.userStore.data;
   });
 
-  const [profile, setProfile] = useState<User[]>([]);
+  const [profile, setProfile] = useState({
+    fullName: userStore?.fullName || "",
+    email: userStore?.email || "",
+    phone: userStore?.phone || "",
+    avatar: userStore?.avatar || "",
+    userName: userStore?.username || "",
+  });
 
   const [password, setPassword] = useState({
     current: "",
@@ -63,6 +71,7 @@ const Profile: React.FC = () => {
       email: target.email.value,
       phone: target.phone.value,
       avatar: await fireBaseFn.uploadToStorage(target.image.files[0]),
+      userName: target.userName.value,
     };
     try {
       const response = await apis.user.updateProfile(userStore?.id, data);
@@ -72,11 +81,13 @@ const Profile: React.FC = () => {
        setTimeout(() => {
          window.location.href = "/sigin";
        }, 1000);
+      // dispatch(userActions.updateUserInfo(response.data));
     } catch (error: any) {
       showToast.error(error.response.data.message);
     }
    
   };
+  console.log(userStore);
 
   return (
     <div className="profile-container">
@@ -99,7 +110,7 @@ const Profile: React.FC = () => {
         <h2>Edit Your Profile</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-image">
-            <img src={userStore?.avatar} alt="" />
+            <img src={profile.avatar} alt="" />
             <input type="file" name="image" id="image" />
           </div>
           <div className="form-row">
@@ -108,7 +119,7 @@ const Profile: React.FC = () => {
               <input
                 type="text"
                 name="fullName"
-                value={userStore?.fullName}
+                value={profile.fullName}
                 onChange={handleProfileChange}
                 placeholder="Nhập họ tên"
               />
@@ -116,10 +127,11 @@ const Profile: React.FC = () => {
             <div className="form-group">
               <label>Phone</label>
               <input
-                type="text"
+                type="number"
                 name="phone"
-                value={userStore?.phone}
-                disabled
+                value={profile.phone}
+                onChange={handleProfileChange}
+                // disabled
               />
             </div>
           </div>
@@ -129,10 +141,10 @@ const Profile: React.FC = () => {
               <input
                 type="email"
                 name="email"
-                value={userStore?.email}
+                value={profile.email}
                 onChange={handleProfileChange}
                 //ẩn ô input không cho người dùng nhập
-                disabled
+                // disabled
               />
             </div>
             <div className="form-group">
@@ -145,6 +157,16 @@ const Profile: React.FC = () => {
                 placeholder="Nhập địa chỉ"
               />
             </div>
+          </div>
+          <div className="form-group">
+            <label>userName</label>
+            <input
+              type="text"
+              name="userName"
+              id="userName"
+              value={profile.userName}
+              onChange={handleProfileChange}
+            />
           </div>
           <div className="button-group">
             <button type="submit" className="save">
