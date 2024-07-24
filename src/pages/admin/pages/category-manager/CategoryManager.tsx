@@ -217,7 +217,6 @@ function AddCategoryModal ({ onClose }: AddCategoryModalProps) {
     try {
       const response = await apis.category.addCategory(newCategory);
       const newCategoryData = response.data;
-
       dispatch(categoryAction.add(newCategoryData));
       onClose();
     } catch (error) {
