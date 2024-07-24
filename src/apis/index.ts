@@ -1,5 +1,6 @@
 
 import './axios.instance'
+import { bannerApi } from './modules/banner';
 import { brandApi } from './modules/brand';
 import { category } from './modules/category';
 import { colorApi } from './modules/color';
@@ -8,11 +9,12 @@ import { productApi } from './modules/product';
 import { userApi } from "./modules/user";
 
 export default {
-    category: category,
-    user: userApi,
-    product : productApi,
-    brand: brandApi,
-    color: colorApi,
-    config: configApi
-}
+  category: category,
+  user: userApi,
+  product: productApi,
+  brand: brandApi,
+  color: colorApi,
+  config: configApi,
+  banner: bannerApi,
+};
 

@@ -1,61 +1,17 @@
 import React, { useEffect, useState } from "react";
 import "./Carousel.scss";
-const images = [
-  {
-    src: "https://cdn2.cellphones.com.vn/insecure/rs:fill:690:300/q:90/plain/https://dashboard.cellphones.com.vn/storage/690x300_Galaxy-S24_06%20(2).png",
-    thumb: "img_5terre.jpg",
-    alt: "Cinque Terre",
-  },
-  {
-    src: "https://cdn2.cellphones.com.vn/insecure/rs:fill:690:300/q:90/plain/https://dashboard.cellphones.com.vn/storage/realme-c60-sliding-25-6-2024.png",
-    thumb: "img_mountains.jpg",
-    alt: "Mountains and fjords",
-  },
-  {
-    src: "https://cdn2.cellphones.com.vn/insecure/rs:fill:690:300/q:90/plain/https://dashboard.cellphones.com.vn/storage/nang-cap-iphone-15-prm-chip-sliding-20-602024.jpg",
-    thumb: "img_lights.jpg",
-    alt: "Northern Lights",
-  },
-  {
-    src: "https://cdn2.cellphones.com.vn/insecure/rs:fill:690:300/q:90/plain/https://dashboard.cellphones.com.vn/storage/poco-m6-sliding-cate-27-6-2024.jpg",
-    thumb: "img_lights.jpg",
-    alt: "Northern Lights",
-  },
-  {
-    src: "https://cdn2.cellphones.com.vn/insecure/rs:fill:690:300/q:90/plain/https://dashboard.cellphones.com.vn/storage/o-ro-o-re-giam-60-slide.png",
-    thumb: "img_lights.jpg",
-    alt: "Northern Lights",
-  },
-  {
-    src: "https://cdn2.cellphones.com.vn/insecure/rs:fill:690:300/q:90/plain/https://dashboard.cellphones.com.vn/storage/may-loc-khong-khi-levoit-vital-home.jpg",
-    thumb: "img_lights.jpg",
-    alt: "Northern Lights",
-  },
-  {
-    src: "https://cdn2.cellphones.com.vn/insecure/rs:fill:690:300/q:90/plain/https://dashboard.cellphones.com.vn/storage/tai-nghe-chup-tai-marshall-major-5-home-26-6-2024.jpg",
-    thumb: "img_lights.jpg",
-    alt: "Northern Lights",
-  },
-  {
-    src: "https://cdn2.cellphones.com.vn/insecure/rs:fill:690:300/q:90/plain/https://dashboard.cellphones.com.vn/storage/tai-nghe-tour-pro-sliding-25-6-2024.jpg",
-    thumb: "img_lights.jpg",
-    alt: "Northern Lights",
-  },
-  {
-    src: "https://cdn2.cellphones.com.vn/insecure/rs:fill:690:300/q:90/plain/https://dashboard.cellphones.com.vn/storage/tai-nghe-chup-tai-marshall-major-5-home-26-6-2024.jpg",
-    thumb: "img_lights.jpg",
-    alt: "Northern Lights",
-  },
-  {
-    src: "https://cdn2.cellphones.com.vn/insecure/rs:fill:690:300/q:90/plain/https://dashboard.cellphones.com.vn/storage/tai-nghe-tour-pro-sliding-25-6-2024.jpg",
-    thumb: "img_lights.jpg",
-    alt: "Northern Lights",
-  },
-];
+import { useSelector } from "react-redux";
+import { StoreType } from "@/store";
+
 
 function Carousel() {
+  const bannerStore = useSelector((store: StoreType) => {
+    return store.bannerStore.data;
+  });
+  console.log(bannerStore);
   const [currentSlide, setCurrentSlide] = useState(1);
   const [startIndex, setStartIndex] = useState(0);
+  const images: string[] = bannerStore?.map((banner) => banner.image) ?? [];
   const plusSlides = (n: number) => {
     let newSlide = currentSlide + n;
     if (newSlide >= images.length) {
@@ -78,12 +34,12 @@ function Carousel() {
   return (
     <div className="carousel">
       <div className="container">
-        {images.map((img, index) => (
+        {bannerStore?.map((img, index) => (
           <div
             key={index}
             className={`mySlides ${currentSlide === index ? "active" : ""}`}
           >
-            <img src={img.src} alt={img.alt} />
+            <img src={img.image} alt={img.title} />
           </div>
         ))}
         <a className="prev" onClick={() => plusSlides(-1)}>
@@ -95,7 +51,7 @@ function Carousel() {
       </div>
 
       <div className="thumbnail-container">
-        {images.slice(startIndex, startIndex + 5).map((img, index) => (
+        {bannerStore?.slice(startIndex, startIndex + 5).map((img, index) => (
           <div
             key={index}
             className={`thumbnail ${

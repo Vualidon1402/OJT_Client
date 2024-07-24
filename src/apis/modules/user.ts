@@ -49,4 +49,5 @@ export const userApi = {
   updateProfile: (id: number | undefined, data: Update) => {
     return axios.put(`${import.meta.env.VITE_SV}/users/updateUser/${id}`, data);
   },
+ 
 };

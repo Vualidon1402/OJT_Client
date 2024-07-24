@@ -10,6 +10,7 @@ import UserManager from '@/pages/admin/pages/user-manager/UserManager';
 import BrandManager from '@/pages/admin/pages/brand-manager/BrandManager';
 import ColorManager from '@/pages/admin/pages/color-manager/ColorManager';
 import ConfigManager from '@/pages/admin/pages/config-manager/ConfigManager';
+import BannerManager from "@/pages/admin/pages/banner-manager/Banner-manager";
 
 export default function index() {
   
@@ -42,10 +43,16 @@ export default function index() {
           />
           <Route
             path="/profile"
-            element={lazyFn(() => import("@pages/home/pages/components/userLogin/profile/Profile"), {
-              enable: localStorage.getItem("token") != null,
-              fallBackUrl: "/",
-            })}
+            element={lazyFn(
+              () =>
+                import(
+                  "@pages/home/pages/components/userLogin/profile/Profile"
+                ),
+              {
+                enable: localStorage.getItem("token") != null,
+                fallBackUrl: "/",
+              }
+            )}
           />
         </Route>
         <Route
@@ -56,10 +63,14 @@ export default function index() {
           <Route path="product" element={<ProductManager></ProductManager>} />
           
           <Route path="brand" element={<BrandManager></BrandManager>} />
-          <Route path="category" element={<CategoryManager></CategoryManager>} />
+          <Route
+            path="category"
+            element={<CategoryManager></CategoryManager>}
+          />
           <Route path="user" element={<UserManager></UserManager>} />
           <Route path="color" element={<ColorManager></ColorManager>} />
           <Route path="config" element={<ConfigManager></ConfigManager>} />
+          <Route path="banner" element={<BannerManager></BannerManager>} />
         </Route>
       </Routes>
     </BrowserRouter>
