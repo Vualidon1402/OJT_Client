@@ -1,5 +1,4 @@
 import { Product } from "@/pages/admin/pages/product-manager/interface";
-import { SoundTwoTone } from "@ant-design/icons";
 import axios from "axios";
 
 
@@ -17,4 +16,7 @@ export const productApi = {
     updateProduct: async (data: Product) => {
         return await axios.put(`${import.meta.env.VITE_SV}/product/update`, data)
     },
+    deleteProduct: async (id: number) => {
+        return await axios.delete(`${import.meta.env.VITE_SV}/product/delete/${id}`)
+    }
 }
