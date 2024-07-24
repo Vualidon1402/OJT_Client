@@ -1,22 +1,51 @@
 import React, { useEffect, useState } from 'react'
-import { Product } from './interface'
+import { Product, Image } from './interface'
 import api from '@/apis'
-import { Table } from 'react-bootstrap'
+import { Table, Modal, Button } from 'react-bootstrap'
 import './ProductManager.scss'
+import AddProduct from './components/AddProduct'
 
 export default function ProductManager() {
-  // const [addFormState, setAddFormState] = useState(false);
+  const [addFormState, setAddFormState] = useState(false);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [showModal, setShowModal] = useState(false);
+  const [currentImages, setCurrentImages] = useState<Image[]>([]);
 
-  const [products, setProducts] = useState<Product[]>([])
   useEffect(() => {
     api.product.findAll()
       .then(res => {
         setProducts(res.data)
       })
+      .catch(err => {
+        console.error("API error:", err);
+      });
   }, [])
+
+  function updateListProduct(product: Product) {
+    setProducts([...products, product])
+  }
+
+  function handleShowImages(images: Image[]) {
+    setCurrentImages(images);
+    setShowModal(true);
+  }
+
+  function handleClose() {
+    setShowModal(false);
+    setCurrentImages([]);
+  }
 
   return (
     <div className='product_manager_box'>
+      {
+        addFormState ? (
+          <AddProduct setAddFormState={setAddFormState} updateListProduct={updateListProduct}></AddProduct>
+        ) : (
+          <button onClick={() => {
+            setAddFormState(true)
+          }} className='btn btn-primary'>Create New</button>
+        )
+      }
       <h1>Product Manager</h1>
       <Table striped bordered hover>
         <thead>
@@ -29,10 +58,10 @@ export default function ProductManager() {
             <th>UpdatedAt</th>
             <th>Brand</th>
             <th>Category</th>
-            <th>description</th>
+            <th>Description</th>
             <th>Sku</th>
             <th>Status</th>
-            <th>Conments</th>
+            <th>Comments</th>
             <th>ProductDetail</th>
           </tr>
         </thead>
@@ -41,16 +70,20 @@ export default function ProductManager() {
             products.map((product, index) => (
               <tr key={product.id}>
                 <td>{index + 1}</td>
-                <td>{product.productName}</td>
-                <td>{product.image}</td>
-                <td>null</td>
-                <td>{product.createdAt}</td>
-                <td>{product.updatedAt}</td>
-                <td>nokia</td>
-                <td>{product.category.categoryName}</td>
-                <td>{product.description}</td>
-                <td>{product.sku}</td>
-                <td>{product.status ? "đang bán" : "ngừng bán"}</td>
+                <td>{product?.productName}</td>
+                <td><img src={product?.image} alt={product?.productName} width="50" height="50" /></td>
+                <td>
+                  <button className='btn-show-image' onClick={() => handleShowImages(product?.images)}>
+                    Show Images
+                  </button>
+                </td>
+                <td>{product?.createdAt}</td>
+                <td>{product?.updatedAt}</td>
+                <td>{product?.brand?.brandName}</td>
+                <td>{product?.category?.categoryName}</td>
+                <td>{product?.description}</td>
+                <td>{product?.sku}</td>
+                <td>{product?.status ? "đang bán" : "ngừng bán"}</td>
                 <td>rẻ đẹp</td>
                 <td><a href="/">xem chi tiết</a></td>
               </tr>
@@ -58,6 +91,24 @@ export default function ProductManager() {
           }
         </tbody>
       </Table>
+
+      <Modal show={showModal} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Product Images</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {
+            currentImages.map(img => (
+              <img key={img.id} src={img.src} alt="product" width="70px" height="50px" style={{ margin: '10px 10px 10px 10px' }} />
+            ))
+          }
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   )
 }

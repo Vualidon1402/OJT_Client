@@ -1,14 +1,15 @@
-//Admin
-import OrderManager from "@/pages/admin/pages/order-manager/OrderManager";
-import ProductManager from "@/pages/admin/pages/product-manager/ProductManager";
-import CategoryManager from "@/pages/admin/pages/category-manager/CategoryManager";
-import UserManager from "@/pages/admin/pages/user-manager/UserManager";
-
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { lazyFn, lazyFnDelay } from "./lazy";
 
 import HeroHeader from "@/pages/home/homePage/HeroHeader";
 
+import OrderManager from '@/pages/admin/pages/order-manager/OrderManager';
+import ProductManager from '@/pages/admin/pages/product-manager/ProductManager';
+import CategoryManager from '@/pages/admin/pages/category-manager/CategoryManager';
+import UserManager from '@/pages/admin/pages/user-manager/UserManager';
+import BrandManager from '@/pages/admin/pages/brand-manager/BrandManager';
+import ColorManager from '@/pages/admin/pages/color-manager/ColorManager';
+import ConfigManager from '@/pages/admin/pages/config-manager/ConfigManager';
 
 export default function index() {
   
@@ -46,11 +47,11 @@ export default function index() {
         >
           <Route path="order" element={<OrderManager></OrderManager>} />
           <Route path="product" element={<ProductManager></ProductManager>} />
-          <Route
-            path="category"
-            element={<CategoryManager></CategoryManager>}
-          />
+          <Route path="brand" element={<BrandManager></BrandManager>} />
+          <Route path="category" element={<CategoryManager></CategoryManager>} />
           <Route path="user" element={<UserManager></UserManager>} />
+          <Route path="color" element={<ColorManager></ColorManager>} />
+          <Route path="config" element={<ConfigManager></ConfigManager>} />
         </Route>
       </Routes>
     </BrowserRouter>
