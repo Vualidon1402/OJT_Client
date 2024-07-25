@@ -4,7 +4,8 @@ import api from '@/apis';
 import { Table, Modal, Button } from 'react-bootstrap';
 import './ProductManager.scss';
 import AddProduct from './components/add-product/AddProduct';
-import EditProduct from './components/edit-product.scss/EditProduct';
+import EditProduct from './components/edit-product/EditProduct';
+import { Link } from 'react-router-dom';
 
 function ProductManager() {
   const [addFormState, setAddFormState] = useState(false);
@@ -25,7 +26,6 @@ function ProductManager() {
   }, []);
 
   function handleEditProduct(productId: any) {
-
     setCurrentProductId(productId);
     setEditFormState(true);
   }
@@ -59,6 +59,7 @@ function ProductManager() {
   };
   return (
     <div className='product_manager_box'>
+      <h1>Product Manager</h1>
       {
         editFormState ? (
           <EditProduct productId={currentProductId} setEditFormState={setEditFormState} updateListProduct={updateListProduct} />
@@ -68,7 +69,6 @@ function ProductManager() {
           ) : (
             <>
               <button onClick={() => setAddFormState(true)} className='btn btn-primary'>Create New</button>
-              <h1>Product Manager</h1>
               <Table striped bordered hover>
                 <thead>
                   <tr>
@@ -108,7 +108,9 @@ function ProductManager() {
                         <td>{product?.sku}</td>
                         <td>{product?.status ? "đang bán" : "ngừng bán"}</td>
                         <td>rẻ đẹp</td>
-                        <td><a href="/">xem chi tiết</a></td>
+                        <td>
+                          <Link to={`/manager/product-detail/${product.id}`}>xem chi tiết</Link>
+                        </td>
                         <td>
                           <button className='btn btn-warning' onClick={() => handleEditProduct(product.id)}>Edit</button>
                           {product.status && (
