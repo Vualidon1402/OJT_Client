@@ -10,9 +10,13 @@ import UserManager from '@/pages/admin/pages/user-manager/UserManager';
 import BrandManager from '@/pages/admin/pages/brand-manager/BrandManager';
 import ColorManager from '@/pages/admin/pages/color-manager/ColorManager';
 import ConfigManager from '@/pages/admin/pages/config-manager/ConfigManager';
+
 import BannerManager from "@/pages/admin/pages/banner-manager/Banner-manager";
 import ContactPage from "@/pages/home/contact/ContactPage";
 import About from "@/pages/home/about/About";
+
+import ProductDetail from "@/pages/admin/pages/product-manager/components/product-detail/ProductDetail";
+
 
 export default function index() {
   
@@ -57,6 +61,9 @@ export default function index() {
         >
           <Route path="order" element={<OrderManager></OrderManager>} />
           <Route path="product" element={<ProductManager></ProductManager>} />
+
+          <Route path="product-detail/:productId" element={<ProductDetail></ProductDetail>} />
+          
 
           <Route path="brand" element={<BrandManager></BrandManager>} />
           <Route

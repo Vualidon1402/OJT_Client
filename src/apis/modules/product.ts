@@ -10,7 +10,6 @@ export const productApi = {
         return await axios.post(`${import.meta.env.VITE_SV}/product/add`, data)
     },
     getProductById: async (id: number) => {
-        console.log(id)
         return await axios.get(`${import.meta.env.VITE_SV}/product/get/${id}`)
     },
     updateProduct: async (data: Product) => {
