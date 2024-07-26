@@ -4,6 +4,7 @@
         height: $navbarH;
         background-color: rgb(70, 68, 68);
         display: flex;
+        justify-content: space-between;
         align-items: center;
         padding: 0 5px;
         .user_box {
@@ -21,7 +22,10 @@
             }
         }
         .authen_box {
-
+            color: white;
+            display: flex;
+            display: flex-end;
+            gap: 20px;
         }
     }
     #content {
