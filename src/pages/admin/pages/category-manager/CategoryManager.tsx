@@ -47,7 +47,7 @@ function CategoryManager() {
   return (
     <div className="table-container">
       <h1>Category Manager</h1>
-      <button onClick={handleAddClick}>Add Category</button>
+      <button onClick={handleAddClick} className='btn btn-success' style={{ marginBottom: "10px" }}>Add Category</button>
       <table>
         <thead>
           <tr>
@@ -75,7 +75,7 @@ function CategoryManager() {
               </td>
             </tr>
           ))}
-          
+
         </tbody>
       </table>
       {isModalOpen && selectedCategory && (
@@ -161,9 +161,9 @@ function EditModal({ onClose, category }: EditModalProps) {
           <label>
             Image:
             {category.image && (
-    <img src={category.image} alt="Current Category" style={{ width: '100px', height: '100px' }} />
-  )}
-  <input type="file" name="image" onChange={handleEditChange} />
+              <img src={category.image} alt="Current Category" style={{ width: '100px', height: '100px' }} />
+            )}
+            <input type="file" name="image" onChange={handleEditChange} />
           </label>
           <label>
             Status:
@@ -180,12 +180,14 @@ interface AddCategoryModalProps {
   onClose: () => void;
 }
 
-function AddCategoryModal ({ onClose }: AddCategoryModalProps) {
+function AddCategoryModal({ onClose }: AddCategoryModalProps) {
   const [newCategory, setNewCategory] = useState(
-    {id: 0, categoryName: '',
-       description: '', 
-       image: "", 
-       status: true });
+    {
+      id: 0, categoryName: '',
+      description: '',
+      image: "",
+      status: true
+    });
   const dispatch = useDispatch();
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -196,7 +198,7 @@ function AddCategoryModal ({ onClose }: AddCategoryModalProps) {
         const imageUrl = await fireBaseFn.uploadToStorage(file);
         setNewCategory({
           ...newCategory,
-          image: imageUrl, 
+          image: imageUrl,
         });
         console.log(imageUrl);
       } catch (error) {
@@ -238,11 +240,11 @@ function AddCategoryModal ({ onClose }: AddCategoryModalProps) {
           </label>
           <label>
             Description:
-            <input 
-            type="text" 
-            name="description" 
-            placeholder='Tối đa 255 ký tự' 
-            value={newCategory.description} onChange={handleChange} required />
+            <input
+              type="text"
+              name="description"
+              placeholder='Tối đa 255 ký tự'
+              value={newCategory.description} onChange={handleChange} required />
           </label>
           <label>
             Image:
@@ -250,7 +252,7 @@ function AddCategoryModal ({ onClose }: AddCategoryModalProps) {
           </label>
           <label>
             Status:
-            <input type="checkbox" name="status" checked={newCategory.status} onChange={(e) => setNewCategory({...newCategory, status: e.target.checked})} />
+            <input type="checkbox" name="status" checked={newCategory.status} onChange={(e) => setNewCategory({ ...newCategory, status: e.target.checked })} />
           </label>
           <button type="submit">Add</button>
         </form>

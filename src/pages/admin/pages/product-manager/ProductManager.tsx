@@ -14,6 +14,8 @@ function ProductManager() {
   const [currentImages, setCurrentImages] = useState<Image[]>([]);
   const [currentProductId, setCurrentProductId] = useState<number | null>(null);
   const [editFormState, setEditFormState] = useState(false);
+  const [statusFilter, setStatusFilter] = useState<string>('all');
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   useEffect(() => {
     api.product.findAll()
@@ -25,20 +27,50 @@ function ProductManager() {
       });
   }, []);
 
-  function handleEditProduct(productId: any) {
+  useEffect(() => {
+    if (statusFilter === 'all') {
+      api.product.findAll()
+        .then(res => {
+          setProducts(res.data);
+        })
+        .catch(err => {
+          console.error("API error:", err);
+        });
+    } else {
+      api.product.sortProductByStatus(statusFilter === 'true')
+        .then(res => {
+          setProducts(res.data);
+        })
+        .catch(err => {
+          console.error("API error:", err);
+        });
+    }
+  }, [statusFilter]);
+
+  const handleSearch = () => {
+    api.product.searchProduct(searchTerm)
+      .then(res => {
+        setProducts(res.data);
+      })
+      .catch(err => {
+        console.error("Search error:", err);
+      });
+  };
+
+  const handleEditProduct = (productId: any) => {
     setCurrentProductId(productId);
     setEditFormState(true);
-  }
+  };
 
-  function handleShowImages(images: Image[]) {
+  const handleShowImages = (images: Image[]) => {
     setCurrentImages(images);
     setShowModal(true);
-  }
+  };
 
-  function handleClose() {
+  const handleClose = () => {
     setShowModal(false);
     setCurrentImages([]);
-  }
+  };
 
   const updateListProduct = (newProduct: Product) => {
     setProducts((prevProducts) => [newProduct, ...prevProducts]);
@@ -57,6 +89,7 @@ function ProductManager() {
         console.error("Delete error:", err);
       });
   };
+
   return (
     <div className='product_manager_box'>
       <h1>Product Manager</h1>
@@ -68,7 +101,24 @@ function ProductManager() {
             <AddProduct setAddFormState={setAddFormState} updateListProduct={updateListProduct} />
           ) : (
             <>
-              <button onClick={() => setAddFormState(true)} className='btn btn-primary'>Create New</button>
+              <button onClick={() => setAddFormState(true)} className='btn btn-success'>Create New</button>
+              <div style={{ marginBottom: '10px' }}>
+                <label htmlFor="statusFilter">Filter by Status: </label>
+                <select id="statusFilter" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+                  <option value="all">All</option>
+                  <option value="true">Active</option>
+                  <option value="false">Inactive</option>
+                </select>
+              </div>
+              <div className="search-container">
+                <button onClick={handleSearch} className='btn btn-primary'>Search</button>
+                <input
+                  type="text"
+                  placeholder="Search by product name"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </div>
               <Table striped bordered hover>
                 <thead>
                   <tr>
@@ -96,7 +146,7 @@ function ProductManager() {
                         <td>{product?.productName}</td>
                         <td><img src={product?.image} alt={product?.productName} width="50" height="50" /></td>
                         <td>
-                          <button className='btn-show-image' onClick={() => handleShowImages(product?.images)}>
+                          <button className='btn-show-image btn btn-primary' onClick={() => handleShowImages(product?.images)}>
                             Show Images
                           </button>
                         </td>
@@ -112,7 +162,7 @@ function ProductManager() {
                           <Link to={`/manager/product-detail/${product.id}`}>xem chi tiết</Link>
                         </td>
                         <td>
-                          <button className='btn btn-warning' onClick={() => handleEditProduct(product.id)}>Edit</button>
+                          <button style={{ marginRight: "10px" }} className='btn btn-warning' onClick={() => handleEditProduct(product.id)}>Edit</button>
                           {product.status && (
                             <button className='btn btn-danger' onClick={() => handleDeleteProduct(product.id)}>Delete</button>
                           )}
@@ -145,7 +195,6 @@ function ProductManager() {
         )
       }
     </div>
-
   );
 }
 
