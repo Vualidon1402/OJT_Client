@@ -37,7 +37,7 @@ const AddProductDetail: React.FC<AddProductDetailProps> = ({ productId, onClose,
     configId: 0,
     status: true,
   });
-
+   
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -67,6 +67,7 @@ const AddProductDetail: React.FC<AddProductDetailProps> = ({ productId, onClose,
       onClose();
     } catch (err) {
       alert('Error creating product detail');
+      console.log(err);
     }
   };
 

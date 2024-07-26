@@ -17,5 +17,8 @@ export const productApi = {
     },
     deleteProduct: async (id: number) => {
         return await axios.delete(`${import.meta.env.VITE_SV}/product/delete/${id}`)
+    },
+    sortProductByStatus: async (status : boolean) => {
+        return await axios.get(`${import.meta.env.VITE_SV}/product/getByStatus/${status}`)
     }
 }

@@ -77,7 +77,9 @@ function EditProduct({ setEditFormState, updateListProduct, productId }: { setEd
                     <br />
                     <input type="text" name='description' defaultValue={product.description} placeholder='product description' className='form_input' />
                     <br />
-                    <img src={product.image} alt='product' className='form_image' style={{ width: '460px', height: '150px' }} />
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <img src={product.image} alt='product' className='form_image' style={{ width: '200px', height: '70px' }} />
+                    </div>
                     <input type="hidden" name='currentImage' value={product.image} />
                     <input type="file" name='image' className='form_file' />
                     <br />
@@ -99,9 +101,17 @@ function EditProduct({ setEditFormState, updateListProduct, productId }: { setEd
                         }
                     </select>
                     <br />
-                    {product.images.map((image: { src: string }, index: number) => (
-                        <img key={index} src={image.src} alt='product' className='form_image' style={{ width: '100px', height: '50px', display: 'inline-block', marginRight: '5px' }} />
-                    ))}
+                    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+                        {product.images.map((image: { src: string }, index: number) => (
+                            <img
+                                key={index}
+                                src={image.src}
+                                alt='product'
+                                className='form_image'
+                                style={{ width: '100px', height: '50px', marginRight: '5px', marginBottom: '5px' }}
+                            />
+                        ))}
+                    </div>
 
                     <input type="file" name='images' multiple className='form_file' />
                     <br />
@@ -114,7 +124,6 @@ function EditProduct({ setEditFormState, updateListProduct, productId }: { setEd
                 </form>
             </div>
         </div>
-
     );
 }
 
