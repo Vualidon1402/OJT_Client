@@ -5,7 +5,7 @@ import { fireBaseFn } from '@/firebase';
 import { StoreType } from '@/store';
 import './EditProduct.scss';
 
-function EditProduct({ setEditFormState, updateListProduct, productId }: { setEditFormState: any, updateListProduct: any, productId: number }) {
+function EditProduct({ setEditFormState, updateListProduct, productId }: { setEditFormState: any, updateListProduct: any, productId: any }) {
     const categoryStore = useSelector((store: StoreType) => store.categoryStore);
     const brandStore = useSelector((store: StoreType) => store.brandStore);
     const [product, setProduct] = useState<any>(null);
