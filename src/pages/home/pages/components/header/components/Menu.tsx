@@ -25,7 +25,6 @@ const AppMenu: React.FC = () => {
     return store.userStore;
     
   });
-  console.log(userStore);
 
   function handleLogout() {
     // Xóa token
