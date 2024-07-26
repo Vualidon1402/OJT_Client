@@ -1,0 +1,128 @@
+.product-list {
+  padding: 20px;
+
+  .product-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    h2 {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .navigation {
+      .nav-button {
+        background: none;
+        border: 1px solid #ccc;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+
+    .product-card {
+      border: 1px solid #eee;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+
+      .product-image {
+        position: relative;
+        img {
+          width: 100%;
+          height: 200px;
+          object-fit: cover;
+          transition: opacity 0.3s ease;
+        }
+        .new-label {
+          position: absolute;
+          top: 10px;
+          left: 10px;
+          background-color: #4CAF50;
+          color: white;
+          padding: 2px 8px;
+          border-radius: 4px;
+        }
+        .favorite-button, .quick-view-button {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          background: none;
+          border: none;
+          font-size: 20px;
+          cursor: pointer;
+        }
+        .quick-view-button {
+          top: 40px;
+        }
+        .add-to-cart {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          padding: 10px;
+          background-color: #000;
+          color: white;
+          border: none;
+          cursor: pointer;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+      }
+
+      &:hover {
+        .product-image {
+          img {
+            opacity: 0.7;
+          }
+          .add-to-cart {
+            opacity: 1;
+          }
+        }
+      }
+
+      .product-info {
+        padding: 10px;
+
+        h3 {
+          margin: 0 0 5px;
+          font-size: 16px;
+        }
+
+        .price {
+          color: #e44d26;
+          font-weight: bold;
+        }
+
+        .rating {
+          color: #ffc107;
+          .review-count {
+            color: #666;
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+
+  .view-all-button {
+    display: block;
+    margin: 20px auto 0;
+    padding: 10px 20px;
+    background-color: #e44d26;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+}

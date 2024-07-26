@@ -53,3 +53,4 @@ export const deleteImage = async (url: string) => {
     console.error("Error deleting image:", err);
   }
 };
+
