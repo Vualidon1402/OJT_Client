@@ -6,6 +6,7 @@ import './ProductManager.scss';
 import AddProduct from './components/add-product/AddProduct';
 import EditProduct from './components/edit-product/EditProduct';
 import { Link } from 'react-router-dom';
+import { Pagination as AntPagination } from 'antd';
 
 function ProductManager() {
   const [addFormState, setAddFormState] = useState(false);
@@ -16,22 +17,26 @@ function ProductManager() {
   const [editFormState, setEditFormState] = useState(false);
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState<string>('');
+  const [page, setPage] = useState<number>(0);
+  const [size, setSize] = useState<number>(5);
+  const [total, setTotal] = useState<number>(0);
 
   useEffect(() => {
-    api.product.findAll()
-      .then(res => {
-        setProducts(res.data);
-      })
-      .catch(err => {
-        console.error("API error:", err);
-      });
-  }, []);
+    fetchProducts(page, size);
+  }, [page, size]);
 
   useEffect(() => {
+    fetchProducts(page, size);
+  }, [statusFilter]);
+
+  const fetchProducts = (page: number, size: number) => {
     if (statusFilter === 'all') {
-      api.product.findAll()
+      api.product.paginationProduct(page, size)
         .then(res => {
-          setProducts(res.data);
+          setProducts(res.data.content);
+          setTotal(res.data.totalElements);
+          console.log(res.data)
+          console.log(res.data.totalPages);
         })
         .catch(err => {
           console.error("API error:", err);
@@ -39,13 +44,14 @@ function ProductManager() {
     } else {
       api.product.sortProductByStatus(statusFilter === 'true')
         .then(res => {
-          setProducts(res.data);
+          setProducts(res.data.content);
+          setTotal(res.data.totalElements);
         })
         .catch(err => {
           console.error("API error:", err);
         });
     }
-  }, [statusFilter]);
+  };
 
   const handleSearch = () => {
     api.product.searchProduct(searchTerm)
@@ -172,7 +178,15 @@ function ProductManager() {
                   }
                 </tbody>
               </Table>
-
+              <AntPagination
+                current={page + 1}
+                pageSize={size}
+                total={total}
+                onChange={(page, pageSize) => {
+                  setPage(page - 1);
+                  setSize(pageSize);
+                }}
+              />
               <Modal show={showModal} onHide={handleClose}>
                 <Modal.Header closeButton>
                   <Modal.Title>Product Images</Modal.Title>
