@@ -18,8 +18,8 @@ export const productApi = {
     deleteProduct: async (id: number) => {
         return await axios.delete(`${import.meta.env.VITE_SV}/product/delete/${id}`)
     },
-    sortProductByStatus: async (status: boolean) => {
-        return await axios.get(`${import.meta.env.VITE_SV}/product/getByStatus/${status}`)
+    sortProductByStatus: async (status: boolean, page: number, size: number) => {
+        return await axios.get(`${import.meta.env.VITE_SV}/product/getByStatus/${status}/${page}/${size}`)
     },
     searchProduct: async (name: string) => {
         return await axios.get(`${import.meta.env.VITE_SV}/product/search/${name}`)

@@ -42,7 +42,7 @@ function ProductManager() {
           console.error("API error:", err);
         });
     } else {
-      api.product.sortProductByStatus(statusFilter === 'true')
+      api.product.sortProductByStatus(statusFilter === 'true', page, size)
         .then(res => {
           setProducts(res.data.content);
           setTotal(res.data.totalElements);
