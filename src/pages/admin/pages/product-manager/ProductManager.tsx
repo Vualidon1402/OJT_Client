@@ -15,6 +15,7 @@ function ProductManager() {
   const [currentProductId, setCurrentProductId] = useState<number | null>(null);
   const [editFormState, setEditFormState] = useState(false);
   const [statusFilter, setStatusFilter] = useState<string>('all');
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   useEffect(() => {
     api.product.findAll()
@@ -46,20 +47,30 @@ function ProductManager() {
     }
   }, [statusFilter]);
 
-  function handleEditProduct(productId: any) {
+  const handleSearch = () => {
+    api.product.searchProduct(searchTerm)
+      .then(res => {
+        setProducts(res.data);
+      })
+      .catch(err => {
+        console.error("Search error:", err);
+      });
+  };
+
+  const handleEditProduct = (productId: any) => {
     setCurrentProductId(productId);
     setEditFormState(true);
-  }
+  };
 
-  function handleShowImages(images: Image[]) {
+  const handleShowImages = (images: Image[]) => {
     setCurrentImages(images);
     setShowModal(true);
-  }
+  };
 
-  function handleClose() {
+  const handleClose = () => {
     setShowModal(false);
     setCurrentImages([]);
-  }
+  };
 
   const updateListProduct = (newProduct: Product) => {
     setProducts((prevProducts) => [newProduct, ...prevProducts]);
@@ -98,6 +109,15 @@ function ProductManager() {
                   <option value="true">Active</option>
                   <option value="false">Inactive</option>
                 </select>
+              </div>
+              <div className="search-container">
+                <button onClick={handleSearch} className='btn btn-primary'>Search</button>
+                <input
+                  type="text"
+                  placeholder="Search by product name"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
               </div>
               <Table striped bordered hover>
                 <thead>

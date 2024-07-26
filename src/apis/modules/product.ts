@@ -20,5 +20,8 @@ export const productApi = {
     },
     sortProductByStatus: async (status : boolean) => {
         return await axios.get(`${import.meta.env.VITE_SV}/product/getByStatus/${status}`)
+    },
+    searchProduct: async (name: string) => {
+        return await axios.get(`${import.meta.env.VITE_SV}/product/search/${name}`)
     }
 }
