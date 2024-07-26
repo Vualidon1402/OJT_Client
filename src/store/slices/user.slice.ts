@@ -41,6 +41,10 @@ export interface User {
   createdAt: string;
   updatedAt: string;
 }
+export interface token {
+  userId: string | number | undefined;
+  otp: string;
+}
 
 export interface Register {
   username: string;

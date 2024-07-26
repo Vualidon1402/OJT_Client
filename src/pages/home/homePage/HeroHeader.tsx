@@ -2,9 +2,11 @@ import React from "react";
 import Navbar from "./navbar/Navbar";
 import Carousel from "./carousel/Carousel";
 
-import Product from "./product/Product";
+import Product from "./product/ProductList";
 
 import "./HeroHeader.scss";
+import CategoryBrowserProps from "./category/CategoryBrowserProps";
+import FlashSales from "./flashSales/FlashSales";
 
 export default function HeroHeader() {
   return (
@@ -16,6 +18,8 @@ export default function HeroHeader() {
         </main>
       </div>
       <div className="product">
+        <FlashSales />
+        <CategoryBrowserProps />
         <Product />
       </div>
     </>
