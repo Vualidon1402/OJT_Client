@@ -8,7 +8,6 @@ function Carousel() {
   const bannerStore = useSelector((store: StoreType) => {
     return store.bannerStore.data;
   });
-  console.log(bannerStore);
   const [currentSlide, setCurrentSlide] = useState(1);
   const [startIndex, setStartIndex] = useState(0);
   const images: string[] = bannerStore?.map((banner) => banner.image) ?? [];

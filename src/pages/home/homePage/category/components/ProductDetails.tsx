@@ -1,30 +1,42 @@
-import React, { useEffect, useState } from "react";
-import "./ProductList.scss";
-import { ProductModel } from "@/store/slices/product.slice";
-import apis from "@/apis";
+import React, { useEffect, useState } from 'react'
+import "../../product/ProductList.scss";
+import { useParams } from 'react-router-dom';
+import apis from '@/apis';
+import { ProductModel } from '@/store/slices/product.slice';
 
-export default function ProductList() {
-  const [products, setProducts] = React.useState<ProductModel[]>([]);
-  useEffect(() => {
-    const fetchTopProducts = async () => {
-      try {
-        const res = await apis.product.getTop8Product();
-
-        setProducts(res.data);
-      } catch (error) {
-        console.error("Failed to fetch top products:", error);
-      }
-    };
-
-    fetchTopProducts();
-  }, []);
-
-  const [isFavorite, setIsFavorite] = useState(false);
-
-  const toggleFavorite = () => {
-    setIsFavorite(!isFavorite);
+export default function ProductDetails() {
     
-  };
+    const [products, setProducts] = React.useState<ProductModel[]>([]);
+    const { id } = useParams();
+
+    useEffect(() => {
+      const fetchProducts = async () => {
+        if (id !== undefined) {
+          try {
+            const numericId = parseInt(id, 10);
+            if (!isNaN(numericId)) {
+              const response = await apis.product.getProductByCategory(
+                numericId
+              );
+              console.log(response.data);
+             setProducts(response.data);
+            } else {
+              console.error("Invalid ID");
+            }
+          } catch (error) {
+            console.error("Error fetching products:", error);
+          }
+        }
+      };
+
+      fetchProducts();
+    }, [id]);
+
+    const [isFavorite, setIsFavorite] = useState(false);
+
+    const toggleFavorite = () => {
+      setIsFavorite(!isFavorite);
+    };
 
   return (
     <>
@@ -70,7 +82,6 @@ export default function ProductList() {
             </div>
           ))}
         </div>
-        <button className="view-all-button">View All Products</button>
       </div>
     </>
   );
