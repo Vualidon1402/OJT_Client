@@ -46,7 +46,7 @@ function BrandManager() {
   return (
     <div className="table-container">
       <h1>Brand Manager</h1>
-      <button onClick={handleAddClick}>Add Brand</button>
+      <button className='btn btn-success' style={{marginBottom: "10px"}} onClick={handleAddClick}>Add Brand</button>
       <table>
         <thead>
           <tr>
@@ -230,7 +230,7 @@ function AddBrandModal ({ onClose }: AddBrandModalProps) {
     <div className="modal-category">
       <div className="modal-content">
         <span className="close" onClick={onClose}>&times;</span>
-        <h2>Add Category</h2>
+        <h2>Add Brand</h2>
         <form onSubmit={handleSubmit}>
           <label>
             Name:

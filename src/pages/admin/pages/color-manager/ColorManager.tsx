@@ -44,7 +44,7 @@ function ColorManager() {
   return (
     <div className="table-container">
       <h1>Color Manager</h1>
-      <button onClick={handleAddClick}>Add Color</button>
+      <button className='btn btn-success' style={{marginBottom: "10px"}} onClick={handleAddClick}>Add Color</button>
       <table>
         <thead>
           <tr>

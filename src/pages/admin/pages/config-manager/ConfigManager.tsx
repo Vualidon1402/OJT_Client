@@ -44,7 +44,7 @@ console.log(configStore)
   return (
     <div className="table-container">
       <h1>Config Manager</h1>
-      <button onClick={handleAddClick}>Add Config</button>
+      <button className='btn btn-success' style={{marginBottom: "10px"}} onClick={handleAddClick}>Add Config</button>
       <table>
         <thead>
           <tr>
