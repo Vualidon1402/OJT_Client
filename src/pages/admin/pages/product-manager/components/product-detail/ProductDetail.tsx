@@ -27,6 +27,8 @@ interface ProductDetail {
   config?: Config;
   configId: number;
   status?: boolean;
+  discount?: number;
+  discountPrice?: number;
 }
 
 const ProductDetail: React.FC = () => {
@@ -127,6 +129,8 @@ const ProductDetail: React.FC = () => {
                     <th>Product Detail Name</th>
                     <th>Stock</th>
                     <th>Unit Price</th>
+                    <th>Discount</th>
+                    <th>Discount Price</th>
                     <th>Color Name</th>
                     <th>Config Name</th>
                     <th>Status</th>
@@ -141,6 +145,8 @@ const ProductDetail: React.FC = () => {
                       <td>{detail.productDetailName}</td>
                       <td>{detail.stock}</td>
                       <td>{detail.unitPrice}</td>
+                      <td>{detail.discount}</td>
+                      <td>{detail.discountPrice}</td>
                       <td>{detail.color?.colorName}</td>
                       <td>{detail.config?.configName}</td>
                       <td>{detail.status ? "Active" : "InActive"}</td>

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import api from "@/apis";
-import "./AddProductDetail.scss";
 import { fireBaseFn } from "@/firebase";
 import { useSelector } from "react-redux";
 import { StoreType } from "@/store";
@@ -23,6 +22,11 @@ interface ProductDetail {
   productId: number;
   configId: number;
   status?: boolean;
+<<<<<<< HEAD
+  discount?: number;
+=======
+  discount: number;
+>>>>>>> 5da2e2d (Completed ui-api-integration-flash-sale-product-homePage)
 }
 
 const AddProductDetail: React.FC<AddProductDetailProps> = ({
@@ -41,6 +45,7 @@ const AddProductDetail: React.FC<AddProductDetailProps> = ({
     productId: productId,
     configId: 0,
     status: true,
+    discount: 0,
   });
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -58,6 +63,7 @@ const AddProductDetail: React.FC<AddProductDetailProps> = ({
       }));
     }
   };
+  console.log(productDetail);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -65,14 +71,24 @@ const AddProductDetail: React.FC<AddProductDetailProps> = ({
       alert("Please select an image file.");
       return;
     }
+
+
     try {
       const imageUrl = await fireBaseFn.uploadToStorage(selectedFile);
+<<<<<<< HEAD
       const response = await api.productDetail.addProductDetail({
         ...productDetail,
         image: imageUrl,
       });
       updateListProductDetail(response.data);
       alert("Product detail created successfully");
+=======
+      console.log("aaaaa" , productDetail)
+      const response = await api.productDetail.addProductDetail({ ...productDetail, image: imageUrl });
+      updateListProductDetail(response.data);
+      console.log(response.data);
+      alert('Product detail created successfully');
+>>>>>>> 5da2e2d (Completed ui-api-integration-flash-sale-product-homePage)
       setAddFormState(false);
       onClose();
     } catch (err) {
@@ -82,7 +98,9 @@ const AddProductDetail: React.FC<AddProductDetailProps> = ({
   };
 
   const colorStore = useSelector((store: StoreType) => store.colorStore);
+  console.log(colorStore);
   const configStore = useSelector((store: StoreType) => store.configStore);
+  console.log(configStore);
 
   return (
     <div className="productDetail_add_box">
@@ -129,6 +147,7 @@ const AddProductDetail: React.FC<AddProductDetailProps> = ({
             />
           </div>
           <div>
+<<<<<<< HEAD
             <label> Unit Price:</label>
             <input
               type="text"
@@ -136,6 +155,27 @@ const AddProductDetail: React.FC<AddProductDetailProps> = ({
               value={productDetail.unitPrice}
               onChange={handleChange}
               placeholder="Unit Price"
+              className="form_input"
+            />
+=======
+            <label > Unit Price:
+            </label>
+            <input type="text" name="unitPrice" value={productDetail.unitPrice} onChange={handleChange} placeholder="Unit Price" className='form_input' />
+          </div>
+          <div>
+            <label > Discount:
+            </label>
+            <input type="text" name="discount" value={productDetail.discount} onChange={handleChange} placeholder="Discount" className='form_input' />
+>>>>>>> 5da2e2d (Completed ui-api-integration-flash-sale-product-homePage)
+          </div>
+          <div>
+            <label> Discount:</label>
+            <input
+              type="text"
+              name="discount"
+              value={productDetail.discount}
+              onChange={handleChange}
+              placeholder="Discount"
               className="form_input"
             />
           </div>
