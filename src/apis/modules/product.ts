@@ -45,3 +45,4 @@ export const productApi = {
     return await axios.get(`${import.meta.env.VITE_SV}/product/discount`)
 }
 };
+

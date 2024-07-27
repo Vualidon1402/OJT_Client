@@ -4,7 +4,11 @@ export interface ImageModel {
     src: string;
     product: ProductModel;
   }
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 5da2e2d (Completed ui-api-integration-flash-sale-product-homePage)
   // ProductDetailModel.ts
   export interface ProductDetailModel {
     id: number;
@@ -19,7 +23,11 @@ export interface ImageModel {
     discount: number;
     discountPrice: number;
   }
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 5da2e2d (Completed ui-api-integration-flash-sale-product-homePage)
   // ProductModel.ts
   export interface ProductModel {
     id: number;
@@ -36,21 +44,33 @@ export interface ImageModel {
     comments: CommentModel[];
     productDetails: ProductDetailModel[];
   }
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 5da2e2d (Completed ui-api-integration-flash-sale-product-homePage)
   // ColorModel.ts
   export interface ColorModel {
       id: number;
       colorName: string;
       status: boolean;
   }
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 5da2e2d (Completed ui-api-integration-flash-sale-product-homePage)
   // ConfigModel.ts
   export interface ConfigModel {
       id: number;
       configName: string;
       status: boolean;
   }
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 5da2e2d (Completed ui-api-integration-flash-sale-product-homePage)
   // BrandModel.ts
   export interface BrandModel {
       id: number;
@@ -60,7 +80,11 @@ export interface ImageModel {
       image: string;
       status: boolean;
   }
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 5da2e2d (Completed ui-api-integration-flash-sale-product-homePage)
   // CategoryModel.ts
   export interface CategoryModel {
       id: number;
@@ -71,7 +95,11 @@ export interface ImageModel {
       status: boolean;
       products: ProductModel[];
   }
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 5da2e2d (Completed ui-api-integration-flash-sale-product-homePage)
   // CommentModel.ts
   export interface CommentModel {
       id: number;
