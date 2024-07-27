@@ -41,4 +41,7 @@ export const productApi = {
       `${import.meta.env.VITE_SV}/product/getByCategory/${categoryId}`
     );
   },
+  findProductHaveDiscount: async () => {
+    return await axios.get(`${import.meta.env.VITE_SV}/product/discount`)
+}
 };

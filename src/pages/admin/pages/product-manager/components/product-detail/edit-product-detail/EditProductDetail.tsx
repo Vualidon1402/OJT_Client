@@ -49,6 +49,7 @@ const EditProductDetail: React.FC<EditProductDetailProps> = ({ productDetailId, 
       configId: form.configId.value,
       status: form.status.checked,
       image: mainImage,
+      discount: form.discount.value,
     };
     console.log(updatedProductDetail);
 
@@ -114,6 +115,16 @@ const EditProductDetail: React.FC<EditProductDetailProps> = ({ productDetailId, 
               name="unitPrice"
               defaultValue={productDetail.unitPrice}
               placeholder='unit price'
+              className='form_input'
+            />
+          </div>
+          <div className='form_group'>
+            <label className='form_label'>Discount: </label>
+            <input
+              type="number"
+              name="discount"
+              defaultValue={productDetail.discount}
+              placeholder='discount'
               className='form_input'
             />
           </div>

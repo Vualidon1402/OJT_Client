@@ -35,8 +35,6 @@ function ProductManager() {
         .then(res => {
           setProducts(res.data.content);
           setTotal(res.data.totalElements);
-          console.log(res.data)
-          console.log(res.data.totalPages);
         })
         .catch(err => {
           console.error("API error:", err);

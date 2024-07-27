@@ -1,24 +1,22 @@
 import React, { useState, useEffect } from "react";
 import "./FlashSales.scss";
-
-interface Product {
-  id: number;
-  name: string;
-  currentPrice: number;
-  originalPrice: number;
-  image: string;
-  rating: number;
-  reviewCount: number;
-  discount: number;
-}
+import { ProductModel } from "@/store/slices/product.slice";
+import apis from "@/apis";
 
 const FlashSales: React.FC = () => {
+  const [products, setProducts] = useState<ProductModel[]>([]);
   const [timeLeft, setTimeLeft] = useState({
     days: 3,
     hours: 23,
     minutes: 19,
     seconds: 56,
   });
+
+  useEffect(() => {
+    apis.product.findProductHaveDiscount().then((res) => {
+      setProducts(res.data);
+    });
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -52,59 +50,6 @@ const FlashSales: React.FC = () => {
     return () => clearInterval(timer);
   }, []);
 
-  const products: Product[] = [
-    {
-      id: 1,
-      name: "HAVIT HV-G92 Gamepad",
-      currentPrice: 120,
-      originalPrice: 160,
-      image: "/path/to/gamepad-image.jpg",
-      rating: 5,
-      reviewCount: 88,
-      discount: 40,
-    },
-    {
-      id: 2,
-      name: "AK-900 Wired Keyboard",
-      currentPrice: 960,
-      originalPrice: 1160,
-      image: "/path/to/keyboard-image.jpg",
-      rating: 4,
-      reviewCount: 75,
-      discount: 35,
-    },
-    {
-      id: 3,
-      name: "IPS LCD Gaming Monitor",
-      currentPrice: 370,
-      originalPrice: 400,
-      image: "/path/to/monitor-image.jpg",
-      rating: 5,
-      reviewCount: 99,
-      discount: 30,
-    },
-    {
-      id: 4,
-      name: "S-Series Comfort Chair",
-      currentPrice: 375,
-      originalPrice: 400,
-      image: "/path/to/chair-image.jpg",
-      rating: 4.5,
-      reviewCount: 99,
-      discount: 25,
-    },
-    {
-      id: 5,
-      name: "S-Series Comfort Chair",
-      currentPrice: 375,
-      originalPrice: 400,
-      image: "/path/to/another-chair-image.jpg",
-      rating: 5,
-      reviewCount: 99,
-      discount: 25,
-    },
-  ];
-
   return (
     <div className="flash-sales">
       <div className="flash-sales-header">
@@ -131,23 +76,40 @@ const FlashSales: React.FC = () => {
         {products.map((product) => (
           <div key={product.id} className="product-card">
             <div className="product-image">
-              <img src={product.image} alt={product.name} />
-              <span className="discount">-{product.discount}%</span>
+              <img src={product.image} alt={product.productName} />
+              <span className="discount">
+                -{product.productDetails[0].discount}%
+              </span>
               <button className="favorite-button">♡</button>
               <button className="quick-view-button">👁</button>
-              <button className="add-to-cart">Add To Cart</button>
+              <button className="add-to-cart">See Details</button>
             </div>
             <div className="product-info">
-              <h3>{product.name}</h3>
+              <h3>{product.productName}</h3>
               <div className="price">
-                <span className="current-price">${product.currentPrice}</span>
-                <span className="original-price">${product.originalPrice}</span>
+                <span className="current-price">${product.productDetails[0]?.discountPrice}</span>
+                <span className="original-price">${product.productDetails[0]?.unitPrice}</span>
               </div>
               <div className="rating">
+                <div>
+                  <span>⭐⭐⭐⭐⭐</span>
+                  <br />
+                  <span>5.0 (23)</span>
+                </div>
+                <div className="favorite-button">
+                  {/* <button
+                    className={`favorite-button ${isFavorite ? 'active' : ''}`}
+                    onClick={() => toggleFavorite(product.id)}
+                  >
+                    {isFavorite ? '♥' : '♡'}
+                  </button> */}
+                </div>
+              </div>
+              {/* <div className="rating">
                 {"★".repeat(Math.floor(product.rating))}
                 {"☆".repeat(5 - Math.floor(product.rating))}
                 <span className="review-count">({product.reviewCount})</span>
-              </div>
+              </div> */}
             </div>
           </div>
         ))}

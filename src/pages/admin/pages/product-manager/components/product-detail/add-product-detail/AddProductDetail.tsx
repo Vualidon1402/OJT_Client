@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import api from "@/apis";
-import "./AddProductDetail.scss";
 import { fireBaseFn } from "@/firebase";
 import { useSelector } from "react-redux";
 import { StoreType } from "@/store";
@@ -23,6 +22,7 @@ interface ProductDetail {
   productId: number;
   configId: number;
   status?: boolean;
+  discount?: number;
 }
 
 const AddProductDetail: React.FC<AddProductDetailProps> = ({
@@ -41,6 +41,7 @@ const AddProductDetail: React.FC<AddProductDetailProps> = ({
     productId: productId,
     configId: 0,
     status: true,
+    discount: 0,
   });
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -136,6 +137,17 @@ const AddProductDetail: React.FC<AddProductDetailProps> = ({
               value={productDetail.unitPrice}
               onChange={handleChange}
               placeholder="Unit Price"
+              className="form_input"
+            />
+          </div>
+          <div>
+            <label> Discount:</label>
+            <input
+              type="text"
+              name="discount"
+              value={productDetail.discount}
+              onChange={handleChange}
+              placeholder="Discount"
               className="form_input"
             />
           </div>
