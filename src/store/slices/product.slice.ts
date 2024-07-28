@@ -11,12 +11,14 @@ export interface ProductDetailModel {
   id: number;
   image: string;
   productDetailName: string;
-  status: boolean;
+  status?: boolean;
   stock: number;
   unitPrice: number;
   color: ColorModel;
   config: ConfigModel;
   product: ProductModel;
+  discount: number;
+  discountPrice: number;
 }
 
 // ProductModel.ts
