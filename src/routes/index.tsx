@@ -42,6 +42,20 @@ export default function index() {
             )}
           />
           <Route
+            path="/checkout"
+            element={lazyFn(
+              () =>
+                import("@/pages/home/homePage/product/checkout/BillingDetails")
+            )}
+          />
+          <Route
+            path="/cart"
+            element={lazyFn(
+              () =>
+                import("@/pages/home/homePage/product/cart/ShoppingCart")
+            )}
+          />
+          <Route
             path="/product/:id"
             element={<ProductDetails></ProductDetails>}
           />
