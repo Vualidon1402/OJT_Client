@@ -8,6 +8,7 @@ import { configApi } from './modules/config';
 import { productApi } from './modules/product';
 import { productDetailApi } from './modules/product-detail';
 import { userApi } from "./modules/user";
+import { wishListApi } from './modules/wishlist';
 
 export default {
 
@@ -18,6 +19,7 @@ export default {
   color: colorApi,
   config: configApi,
   banner: bannerApi,
-  productDetail: productDetailApi
+  productDetail: productDetailApi,
+  wishlist: wishListApi,
 };
 

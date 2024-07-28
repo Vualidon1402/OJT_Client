@@ -18,12 +18,29 @@ import About from "@/pages/home/about/About";
 import ProductDetail from "@/pages/admin/pages/product-manager/components/product-detail/ProductDetail";
 import ProductDetails from "@/pages/home/homePage/category/components/ProductDetails";
 
+
 export default function index() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={lazyFnDelay(() => import("@pages/home/Home"))}>
           <Route path="" element={<HeroHeader></HeroHeader>} />
+          <Route
+            path="/wishlist"
+            element={lazyFn(
+              () => import("@/pages/home/homePage/wishlist/Wishlist")
+            )}
+          />
+          {/* /:id */}
+          <Route
+            path="/productdetails"
+            element={lazyFn(
+              () =>
+                import(
+                  "@/pages/home/homePage/product/productDetails/ProductDetails"
+                )
+            )}
+          />
           <Route
             path="/product/:id"
             element={<ProductDetails></ProductDetails>}

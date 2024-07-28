@@ -7,6 +7,7 @@ import Product from "./product/ProductList";
 import "./HeroHeader.scss";
 import CategoryBrowserProps from "./category/CategoryBrowserProps";
 import FlashSales from "./flashSales/FlashSales";
+import BestSellingProducts from "./bestsellingproducts/Bestsellingproducts";
 
 export default function HeroHeader() {
   return (
@@ -20,6 +21,7 @@ export default function HeroHeader() {
       <div className="product">
         <FlashSales />
         <CategoryBrowserProps />
+        <BestSellingProducts />
         <Product />
       </div>
     </>

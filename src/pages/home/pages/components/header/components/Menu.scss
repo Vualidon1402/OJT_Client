@@ -78,12 +78,15 @@
     display: none !important;
   }
 
-  .ant-menu-item, .ant-menu-submenu {
+  .ant-menu-item,
+  .ant-menu-submenu {
     &::after {
       display: none !important;
     }
 
-    &:hover, &-active, &-selected {
+    &:hover,
+    &-active,
+    &-selected {
       color: #1890ff !important;
       background: transparent !important;
     }
@@ -121,5 +124,27 @@
   color: rgb(0, 0, 0); /* Màu chữ trắng cho các item */
   &:hover {
     background-color: #b23434; /* Màu khi hover */
+  }
+}
+.wish-list {
+  position: relative;
+  display: inline-block; // Đảm bảo container chỉ rộng bằng nội dung
+
+  .wish-list-count {
+    position: absolute;
+    top: 15px; // Di chuyển lên trên
+    right: 0px; // Di chuyển sang phải
+    background-color: #f5222d;
+    color: white;
+    border-radius: 50%;
+    padding: 1px 4px; // Giảm padding để làm nhỏ lại
+    font-size: 8px; // Giảm kích thước chữ
+    min-width: 14px; // Đảm bảo chiều rộng tối thiểu
+    height: 14px; // Đảm bảo chiều cao cố định
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    font-size: 10px;
   }
 }
