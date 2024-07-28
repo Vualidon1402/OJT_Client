@@ -1,4 +1,6 @@
-import React from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useEffect } from "react";
 import { Layout, Menu, Input, Button, Space } from "antd";
 import {
   CommentOutlined,
@@ -9,28 +11,43 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import "./Menu.scss";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { StoreType } from "@/store";
 import { Dropdown } from "react-bootstrap";
+import { wishListActions } from "@/store/slices/wishList.slice";
 
 const { Header } = Layout;
 const { Search } = Input;
 
-
-
 const AppMenu: React.FC = () => {
- 
-  const userStore = useSelector((store: StoreType) => {
-    return store.userStore;
-    
+  const wishList = useSelector((store: StoreType) => {
+    return store.wistListStore;
   });
+  const dispatch = useDispatch<any>();
+  const navigator = useNavigate();
+  const userStore = useSelector<any>((store: StoreType) => {
+    return store.userStore;
+  });
+  const selectUser = (state: StoreType) => state.userStore.data;
+  const user = useSelector(selectUser);
+  const selectUserId = (state: StoreType) => state.userStore.data?.id;
+  // Trong component
+  const userId = useSelector(selectUserId);
+  
+  const wishListCount = wishList.data?.length || 0;
+  useEffect(() => {
+    // Dispatch the thunk to load the wish list when the component mounts
+    if (userId !== undefined) {
+      dispatch(wishListActions.findAllThunk(userId));
+    }
+  }, [dispatch, userId]);
 
   function handleLogout() {
     // Xóa token
     localStorage.removeItem("token");
 
-   window.location.href = "/";
+    window.location.href = "/";
   }
 
   return (
@@ -52,7 +69,7 @@ const AppMenu: React.FC = () => {
             About
           </Link>
         </Menu.Item>
-        {!userStore.data && (
+        {!user && (
           <>
             <Menu.Item key="sigup">
               <Link to="/sigup" style={{ textDecoration: "none" }}>
@@ -73,9 +90,18 @@ const AppMenu: React.FC = () => {
         style={{ width: 200 }}
       />
       <Space className="app-menu__icons">
-        <Button icon={<HeartOutlined />} />
+        <div className="wish-list">
+          <Button
+            icon={<HeartOutlined />}
+            onClick={() => window.location.href = "/wishlist"}
+          />
+          {wishListCount > 0 && (
+            <span className="wish-list-count">{wishListCount}</span>
+          )}
+        </div>
+
         <Button icon={<ShoppingCartOutlined />} />
-        {userStore.data && (
+        {user && (
           // User is logged in, show Dropdown
           <Dropdown className="custom-dropdown">
             <Dropdown.Toggle variant="success" id="dropdown-basic">

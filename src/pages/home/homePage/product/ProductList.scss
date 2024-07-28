@@ -54,8 +54,7 @@
           padding: 2px 8px;
           border-radius: 4px;
         }
-        
-        
+
         .quick-view-button {
           position: absolute;
           top: 10px;
@@ -121,12 +120,36 @@
   }
 
   .favorite-button {
-  background-color: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-      color: red;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: red;
     font-size: 31px;
-}
+  }
+
+  .delete-Wish {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    font-size: 20px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-block-end: 100px;
+    transition: opacity 0.3s ease, background-color 0.3s ease;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+
+    &:hover {
+      background-color: rgb(255, 9, 9); 
+      opacity: 0.8;
+    }
+
+    &:active {
+      background-color: rgb(255, 0, 0); /* Slightly darker red on click */
+    }
+  }
 
   .view-all-button {
     display: block;

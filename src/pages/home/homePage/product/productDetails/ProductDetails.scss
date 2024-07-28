@@ -1,0 +1,155 @@
+.product-details {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  margin-bottom: 200px;
+
+  .product-images {
+    flex: 1;
+    display: flex;
+
+    .thumbnail-list {
+      display: flex;
+      flex-direction: column;
+      margin-right: 20px;
+
+      img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        margin-bottom: 10px;
+        cursor: pointer;
+        border: 2px solid transparent;
+
+        &.active {
+          border-color: #007bff;
+        }
+      }
+    }
+
+    .main-image {
+      flex: 1;
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+
+  .product-info {
+    flex: 1;
+    padding-left: 40px;
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .rating {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+
+      .in-stock {
+        color: green;
+        margin-left: 10px;
+      }
+    }
+
+    .price {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .colors, .sizes {
+      margin-bottom: 20px;
+
+      span {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      button {
+        margin-right: 10px;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+
+        &.active {
+          border: 2px solid #007bff;
+        }
+      }
+    }
+
+    .color-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+    }
+
+    .quantity {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+
+      button {
+        width: 30px;
+        height: 30px;
+        background-color: #f0f0f0;
+        border: none;
+        cursor: pointer;
+      }
+
+      span {
+        margin: 0 10px;
+      }
+    }
+
+    .buy-now {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+
+    .add-to-wishlist {
+      background-color: white;
+      border: 1px solid #007bff;
+      color: #007bff;
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .delivery-info {
+      margin-top: 20px;
+      
+      div {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+
+        i {
+          margin-right: 10px;
+          font-size: 24px;
+        }
+
+        span {
+          font-weight: bold;
+        }
+
+        p {
+          margin-left: 10px;
+          font-size: 14px;
+          color: #666;
+        }
+      }
+    }
+  }
+}

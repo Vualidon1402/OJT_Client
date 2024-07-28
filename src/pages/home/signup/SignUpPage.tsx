@@ -45,7 +45,8 @@ const SignUpPage: React.FC = () => {
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      if (error.response && error.response.data) {
+      if (error.response && error) {
+        console.error("Lỗi đăng ký:", error);
         setErrorMessages(error.response.data);
       } else {
         console.error("Lỗi đăng ký:", error);
