@@ -8,6 +8,7 @@ import "./HeroHeader.scss";
 import CategoryBrowserProps from "./category/CategoryBrowserProps";
 import FlashSales from "./flashSales/FlashSales";
 import BestSellingProducts from "./bestsellingproducts/Bestsellingproducts";
+import EventComponent from "./evenComponent/EventComponent";
 
 export default function HeroHeader() {
   return (
@@ -22,6 +23,7 @@ export default function HeroHeader() {
         <FlashSales />
         <CategoryBrowserProps />
         <BestSellingProducts />
+        <EventComponent />
         <Product />
       </div>
     </>

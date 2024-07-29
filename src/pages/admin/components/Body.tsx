@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 
@@ -22,13 +21,10 @@ export default function Body() {
     menuTemp.push({ title: "Color", url: "color" });
     menuTemp.push({ title: "Config", url: "config" });
     menuTemp.push({ title: "Banner", url: "banner" });
-
-
+    menuTemp.push({ title: "Voucher", url: "voucher" });
+    menuTemp.push({ title: "DiscountEvent", url: "discountevent" });
 
     setMenus(menuTemp);
-
-
-
   }, []);
 
   return (

@@ -93,7 +93,7 @@ const AppMenu: React.FC = () => {
         <div className="wish-list">
           <Button
             icon={<HeartOutlined />}
-            onClick={() => window.location.href = "/wishlist"}
+            onClick={() => (window.location.href = "/wishlist")}
           />
           {wishListCount > 0 && (
             <span className="wish-list-count">{wishListCount}</span>
@@ -108,7 +108,7 @@ const AppMenu: React.FC = () => {
               <Button icon={<UserOutlined />} />
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item href="profile">
+              <Dropdown.Item href="/profile/user">
                 <UserOutlined /> Manage My Account
               </Dropdown.Item>
               <Dropdown.Item href="#/action-2">
