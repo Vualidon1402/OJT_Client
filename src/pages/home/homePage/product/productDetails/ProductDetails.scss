@@ -64,50 +64,6 @@
       margin-bottom: 20px;
     }
 
-    .colors, .sizes {
-      margin-bottom: 20px;
-
-      span {
-        display: block;
-        margin-bottom: 5px;
-      }
-
-      button {
-        margin-right: 10px;
-        border: none;
-        padding: 5px 10px;
-        cursor: pointer;
-
-        &.active {
-          border: 2px solid #007bff;
-        }
-      }
-    }
-
-    .color-btn {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-    }
-
-    .quantity {
-      display: flex;
-      align-items: center;
-      margin-bottom: 20px;
-
-      button {
-        width: 30px;
-        height: 30px;
-        background-color: #f0f0f0;
-        border: none;
-        cursor: pointer;
-      }
-
-      span {
-        margin: 0 10px;
-      }
-    }
-
     .buy-now {
       background-color: #007bff;
       color: white;
@@ -129,7 +85,7 @@
 
     .delivery-info {
       margin-top: 20px;
-      
+
       div {
         display: flex;
         align-items: center;
@@ -151,5 +107,79 @@
         }
       }
     }
+
+    .option {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+
+      .btn {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: start;
+        color: black;
+        width: 300px;
+        height: 130px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background-color: white;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        img {
+          width: 80px;
+          height: 80px;
+          margin: 0 10px 0 0;
+        }
+
+        .details {
+          display: flex;
+          flex-direction: column;
+
+          .product-name,
+          .color-name,
+          .config-name,
+          .price,
+          .status {
+            margin: 0;
+            font-size: 16px;
+            text-align: left;
+          }
+
+          .product-name {
+            font-weight: bold;
+          }
+
+          .price {
+            color: #00ff00;
+          }
+
+          .status {
+            color: #ff0000;
+          }
+        }
+
+        &:hover {
+          border-color: red;
+        }
+
+        &.selected {
+          border-color: #ff0000;
+          position: relative;
+
+          &::after {
+            content: '✓';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: red;
+            font-size: 16px;
+          }
+        }
+      }
+    }
+
+
   }
 }

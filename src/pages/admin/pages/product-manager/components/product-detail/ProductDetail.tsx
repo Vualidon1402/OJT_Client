@@ -149,7 +149,7 @@ const ProductDetail: React.FC = () => {
                       <td>{detail.discountPrice}</td>
                       <td>{detail.color?.colorName}</td>
                       <td>{detail.config?.configName}</td>
-                      <td>{detail.status ? "Active" : "InActive"}</td>
+                      <td>{detail.status ? "Còn hàng" : "Hết hàng"}</td>
                       <td>
                       <button className='btn btn-primary' onClick={() => handleEditProductDetailClick(detail.id)} style={{ marginRight: '10px' }}>Edit</button>
                         <button className='btn btn-danger' onClick={() => handleDeleteProductDetail(detail.id)}>Delete</button>
