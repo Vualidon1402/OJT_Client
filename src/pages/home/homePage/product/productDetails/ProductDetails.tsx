@@ -1,26 +1,21 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import "./ProductDetails.scss";
+import { ProductModel } from "@/store/slices/product.slice";
 
-interface ProductDetailsProps {
-  product: {
-    name: string;
-    price: number;
-    description: string;
-    rating: number;
-    reviewCount: number;
-    inStock: boolean;
-    images: string[];
-    colors: string[];
-    sizes: string[];
-  };
-}
+const ProductDetails: React.FC = () => {
+  const location = useLocation();
+  const { product } = location.state as { product: ProductModel };
 
-const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   const [selectedColor, setSelectedColor] = useState(product?.colors?.[0]);
   const [selectedSize, setSelectedSize] = useState(product?.sizes?.[0]);
   const [quantity, setQuantity] = useState(1);
-  const [mainImage, setMainImage] = useState(product?.images?.[0]);
+  const [mainImage, setMainImage] = useState(product?.images?.[0].src);
+  const [selectedOption, setSelectedOption] = useState(null);
 
+  const handleSelect = (productDetailId) => {
+    setSelectedOption(productDetailId);
+  };
   return (
     <div className="product-details">
       <div className="product-images">
@@ -28,58 +23,43 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
           {product?.images?.map((image, index) => (
             <img
               key={index}
-              src={image}
+              src={image.src}
               alt={`Thumbnail ${index + 1}`}
-              onClick={() => setMainImage(image)}
-              className={mainImage === image ? "active" : ""}
+              onClick={() => setMainImage(image.src)}
+              className={mainImage === image.src ? "active" : ""}
             />
           ))}
         </div>
         <div className="main-image">
-          <img src={mainImage} alt={product?.name} />
+          <img src={mainImage} alt={product?.productName ?? 'Product Image'} />
         </div>
       </div>
       <div className="product-info">
-        <h1>{product?.name}</h1>
+        <h1>{product?.productName}</h1>
         <div className="rating">
-          {/* Implement star rating component */}
           <span>
             {product?.rating} ({product?.reviewCount} Reviews)
           </span>
-          {product?.inStock && <span className="in-stock">In Stock</span>}
         </div>
-        <h2 className="price">${product?.price.toFixed(2)}</h2>
+        <div className="option">
+      {product.productDetails.map((productDetail, index) => (
+        <button
+          key={index}
+          className={`btn btn-primary ${selectedOption === productDetail.id ? 'selected' : ''}`}
+          onClick={() => handleSelect(productDetail.id)}
+        >
+          <img src={productDetail.image} alt={productDetail.color.colorName} />
+          <div className="details">
+            <div className="product-name">{productDetail.productDetailName}</div>
+            <div className="color-name">{productDetail.color.colorName}</div>
+            <div className="config-name">{productDetail.config.configName}</div>
+            <div className="price">{productDetail.discountPrice.toLocaleString()}đ</div>
+            <div className="status">{productDetail.status ? "Còn hàng" : "Hết hàng"}</div>
+          </div>
+        </button>
+      ))}
+    </div>
         <p>{product?.description}</p>
-        <div className="colors">
-          <span>Colours:</span>
-          {product?.colors?.map((color) => (
-            <button
-              key={color}
-              className={`color-btn ${selectedColor === color ? "active" : ""}`}
-              style={{ backgroundColor: color }}
-              onClick={() => setSelectedColor(color)}
-            />
-          ))}
-        </div>
-        <div className="sizes">
-          <span>Size:</span>
-          {product?.sizes?.map((size) => (
-            <button
-              key={size}
-              className={`size-btn ${selectedSize === size ? "active" : ""}`}
-              onClick={() => setSelectedSize(size)}
-            >
-              {size}
-            </button>
-          ))}
-        </div>
-        <div className="quantity">
-          <button onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}>
-            -
-          </button>
-          <span>{quantity}</span>
-          <button onClick={() => setQuantity((prev) => prev + 1)}>+</button>
-        </div>
         <button className="buy-now">Buy Now</button>
         <button className="add-to-wishlist">♡</button>
         <div className="delivery-info">
