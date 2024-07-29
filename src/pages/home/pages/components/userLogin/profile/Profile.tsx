@@ -13,7 +13,7 @@ import { Button, Form, Modal } from "react-bootstrap";
 
 const Profile: React.FC = () => {
   const navigate = useNavigate();
-  
+
   const [verificationModalOpen, setVerificationModalOpen] = useState(false);
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
   const [verificationCode, setVerificationCode] = useState("");
@@ -171,21 +171,8 @@ const Profile: React.FC = () => {
   return (
     <div className="profile-container">
       <div id="fui-toast"></div>
-      <div className="sidebar">
-        <h3>Manage My Account</h3>
-        <ul className="profile">
-          <li className="active">My Profile</li>
-          <li>Address Book</li>
-          <li>My Payment Options</li>
-        </ul>
-        <h3>My Orders</h3>
-        <ul className="profile">
-          <li>My Returns</li>
-          <li>My Cancellations</li>
-        </ul>
-        <h3>My Wishlist</h3>
-      </div>
-      <div className="main-content">
+
+      <div className="main-contentt">
         <h2>Edit Your Profile</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-image">
@@ -300,7 +287,6 @@ const Profile: React.FC = () => {
                 Request OTP
               </button>
             </div>
-           
           </form>
         )}
         {step === "otp" && (

@@ -17,7 +17,10 @@ import About from "@/pages/home/about/About";
 
 import ProductDetail from "@/pages/admin/pages/product-manager/components/product-detail/ProductDetail";
 import ProductDetails from "@/pages/home/homePage/category/components/ProductDetails";
-
+import Profile from "@/pages/home/pages/components/userLogin/profile/Profile";
+import OrderHistory from "@/pages/home/pages/components/userLogin/order/OrderHistory";
+import Voucher from "@/pages/admin/pages/vouchers-manager/Voucher";
+import DiscountEvent from "@/pages/admin/pages/vouchers-manager/DiscountEvents";
 
 export default function index() {
   return (
@@ -41,6 +44,7 @@ export default function index() {
                 )
             )}
           />
+
           <Route
             path="/checkout"
             element={lazyFn(
@@ -51,8 +55,7 @@ export default function index() {
           <Route
             path="/cart"
             element={lazyFn(
-              () =>
-                import("@/pages/home/homePage/product/cart/ShoppingCart")
+              () => import("@/pages/home/homePage/product/cart/ShoppingCart")
             )}
           />
           <Route
@@ -83,16 +86,16 @@ export default function index() {
           <Route
             path="/profile"
             element={lazyFn(
-              () =>
-                import(
-                  "@pages/home/pages/components/userLogin/profile/Profile"
-                ),
+              () => import("@pages/home/pages/components/userLogin/Home"),
               {
                 enable: localStorage.getItem("token") != null,
                 fallBackUrl: "/",
               }
             )}
-          />
+          >
+            <Route path="user" element={<Profile></Profile>} />
+            <Route path="returns" element={<OrderHistory />} />
+          </Route>
         </Route>
         <Route
           path="/manager"
@@ -105,6 +108,7 @@ export default function index() {
             path="product-detail/:productId"
             element={<ProductDetail></ProductDetail>}
           />
+          <Route path="voucher" element={<Voucher></Voucher>} />
 
           <Route path="brand" element={<BrandManager></BrandManager>} />
           <Route
@@ -115,6 +119,7 @@ export default function index() {
           <Route path="color" element={<ColorManager></ColorManager>} />
           <Route path="config" element={<ConfigManager></ConfigManager>} />
           <Route path="banner" element={<BannerManager></BannerManager>} />
+          <Route path="discountevent" element={<DiscountEvent></DiscountEvent>} />
         </Route>
       </Routes>
     </BrowserRouter>

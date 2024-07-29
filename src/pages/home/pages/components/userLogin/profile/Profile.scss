@@ -4,14 +4,22 @@
   margin: 0 auto;
   padding: 20px;
   font-family: Arial, sans-serif;
+  margin-bottom: 50px;
 
   .profile{
     margin-left: 20px;
+  }
+  .ant-menu-title-content{
+    font-size: 20px;
   }
 
   .sidebar {
     width: 250px;
     padding-right: 30px;
+    a{
+        text-decoration: none;
+        color: #333;
+    }
 
     h3 {
       margin-top: 20px;
@@ -34,8 +42,11 @@
       }
     }
   }
+  .main-contents{
+    border-left: 2px solid #4e4c4c55;
+  }
 
-  .main-content {
+  .main-contentt {
     flex: 1;
     .form-image{
         display: flex;
