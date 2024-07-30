@@ -27,7 +27,7 @@ export default function CategoryBrowserProps() {
 
   const handleCategoryClick = async (id: number | null) => {
     setDetail(id);
-    navigator(`product/${id}`);
+    navigator(`category/${id}`);
   };
  
   return (

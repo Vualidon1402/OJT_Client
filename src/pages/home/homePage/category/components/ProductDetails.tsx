@@ -1,42 +1,35 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 import "../../product/ProductList.scss";
-import { useParams } from 'react-router-dom';
-import apis from '@/apis';
-import { ProductModel } from '@/store/slices/product.slice';
+import { useNavigate, useParams } from "react-router-dom";
+import apis from "@/apis";
+import { ProductModel } from "@/store/slices/product.slice";
 
 export default function ProductDetails() {
-    
-    const [products, setProducts] = React.useState<ProductModel[]>([]);
-    const { id } = useParams();
+  const navigate = useNavigate();
+  const [products, setProducts] = React.useState<ProductModel[]>([]);
+  const { id } = useParams();
+  
 
-    useEffect(() => {
-      const fetchProducts = async () => {
-        if (id !== undefined) {
-          try {
-            const numericId = parseInt(id, 10);
-            if (!isNaN(numericId)) {
-              const response = await apis.product.getProductByCategory(
-                numericId
-              );
-              console.log(response.data);
-             setProducts(response.data);
-            } else {
-              console.error("Invalid ID");
-            }
-          } catch (error) {
-            console.error("Error fetching products:", error);
-          }
+  useEffect(() => {
+    const fetchProducts = async () => {
+      if (id !== undefined) {
+        try {
+          const response = await apis.product.getProductByCategory(+id);
+          console.log("response", response);
+          setProducts(response.data);
+        } catch (error) {
+          console.error("Error fetching products:", error);
         }
-      };
-
-      fetchProducts();
-    }, [id]);
-
-    const [isFavorite, setIsFavorite] = useState(false);
-
-    const toggleFavorite = () => {
-      setIsFavorite(!isFavorite);
+      }
     };
+    fetchProducts();
+  }, [id]);
+
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const toggleFavorite = () => {
+    setIsFavorite(!isFavorite);
+  };
 
   return (
     <>
@@ -49,7 +42,16 @@ export default function ProductDetails() {
             <div key={product.id} className="product-card">
               <div className="product-image">
                 <img src={product.image} alt={product.productName} />
-                <button className="add-to-cart">See Details</button>
+                <button
+                  className="add-to-cart"
+                  onClick={() => {
+                    navigate(`/product-details/${product.id}`, {
+                      state: { product },
+                    });
+                  }}
+                >
+                  See Details
+                </button>
               </div>
               <div className="product-info">
                 <h3>{product.productName}</h3>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./FlashSales.scss";
 import { ProductModel } from "@/store/slices/product.slice";
 import apis from "@/apis";
+import { useNavigate } from "react-router-dom";
 
 const FlashSales: React.FC = () => {
   const [products, setProducts] = useState<ProductModel[]>([]);
@@ -11,6 +12,7 @@ const FlashSales: React.FC = () => {
     minutes: 19,
     seconds: 56,
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     apis.product.findProductHaveDiscount().then((res) => {
@@ -82,7 +84,9 @@ const FlashSales: React.FC = () => {
               </span>
               <button className="favorite-button">♡</button>
               <button className="quick-view-button">👁</button>
-              <button className="add-to-cart">See Details</button>
+              <button className="add-to-cart" onClick={()=>{
+                navigate(`/product-details/${product.id}`, { state: { product } });
+              }}>See Details</button>
             </div>
             <div className="product-info">
               <h3>{product.productName}</h3>

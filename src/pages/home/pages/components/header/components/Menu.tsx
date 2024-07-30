@@ -24,6 +24,9 @@ const AppMenu: React.FC = () => {
   const wishList = useSelector((store: StoreType) => {
     return store.wistListStore;
   });
+  const cart = useSelector((store: StoreType) => {
+    return store.cartStore;
+  });
   const dispatch = useDispatch<any>();
   const navigator = useNavigate();
   const userStore = useSelector<any>((store: StoreType) => {
@@ -34,8 +37,13 @@ const AppMenu: React.FC = () => {
   const selectUserId = (state: StoreType) => state.userStore.data?.id;
   // Trong component
   const userId = useSelector(selectUserId);
-  
+  console.log(cart);
   const wishListCount = wishList.data?.length || 0;
+
+  const cartCount = cart.data
+    ? cart.data.reduce((total, item) => total + item.quantity, 0)
+    : 0;
+
   useEffect(() => {
     // Dispatch the thunk to load the wish list when the component mounts
     if (userId !== undefined) {
@@ -99,8 +107,13 @@ const AppMenu: React.FC = () => {
             <span className="wish-list-count">{wishListCount}</span>
           )}
         </div>
-
-        <Button icon={<ShoppingCartOutlined />} />
+        <div className="cart">
+          <Button
+            icon={<ShoppingCartOutlined />}
+            onClick={() => (window.location.href = "/cart")}
+          />
+        </div>
+        {cartCount > 0 && <span className="cart-item">{cartCount}</span>}
         {user && (
           // User is logged in, show Dropdown
           <Dropdown className="custom-dropdown">

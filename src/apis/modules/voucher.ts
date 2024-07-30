@@ -1,4 +1,4 @@
-import { VoucherUpdate } from "@/store/slices/voucher.slice";
+import { ApplyVoucher, VoucherUpdate } from "@/store/slices/voucher.slice";
 import axios from "axios";
 
 export const vouchertApi = {
@@ -12,6 +12,14 @@ export const vouchertApi = {
     return await axios.delete(`${import.meta.env.VITE_SV}/vouchers/${id}`);
   },
   updateVoucher: async (id: number, voucher: VoucherUpdate) => {
-    return await axios.put(`${import.meta.env.VITE_SV}/vouchers/${id}`, voucher);
-  }
+    return await axios.put(
+      `${import.meta.env.VITE_SV}/vouchers/${id}`,
+      voucher
+    );
+  },
+  applyVoucher: async (code: ApplyVoucher) => {
+    return await axios.post(`${import.meta.env.VITE_SV}/payments`, 
+      code,
+      );
+  },
 };

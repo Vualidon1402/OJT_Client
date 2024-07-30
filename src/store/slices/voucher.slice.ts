@@ -8,6 +8,10 @@ export interface Voucher {
   expirationDate: string;
   used?: boolean;
 }
+export interface ApplyVoucher {
+  voucherCode: string;
+  totalAmount: number | undefined;
+}
 
 export interface VoucherUpdate {
   id?: number | undefined;
