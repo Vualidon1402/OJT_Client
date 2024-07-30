@@ -67,6 +67,15 @@ export default function index() {
                 )
             )}
           />
+          <Route
+            path="/all-product"
+            element={lazyFn(
+              () =>
+                import(
+                  "@/pages/home/homePage/product/allProduct/AllProduct"
+                )
+            )}
+          />
           <Route path="/contact" element={<ContactPage></ContactPage>} />
           <Route path="/about" element={<About></About>} />
           <Route

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ProductList.scss";
@@ -91,7 +90,7 @@ function ProductList() {
               <img src={product.image} alt={product.productName} />
               <button
                 className="add-to-cart"
-                onClick={() => handleSeeDetails(product)}
+onClick={() => handleSeeDetails(product)}
               >
                 See Details
               </button>
@@ -100,11 +99,9 @@ function ProductList() {
               <h3>{product.productName}</h3>
               <p className="price">
                 {product.productDetails.length > 0
-                  ? product.productDetails
-                      .reduce((acc, curr) =>
-                        acc.discountPrice > curr.discountPrice ? acc : curr
-                      )
-                      .discountPrice.toLocaleString()
+                  ? product.productDetails.reduce((acc, curr) =>
+                      acc.discountPrice > curr.discountPrice ? acc : curr
+                    ).discountPrice.toLocaleString()
                   : "N/A"}
                 đ
               </p>

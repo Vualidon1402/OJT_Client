@@ -1,7 +1,6 @@
 import { Product } from "@/pages/admin/pages/product-manager/interface";
 import axios from "axios";
 
-
 export const productApi = {
   findAll: async () => {
     return await axios.get(`${import.meta.env.VITE_SV}/product/findAll`);
@@ -43,6 +42,9 @@ export const productApi = {
   },
   findProductHaveDiscount: async () => {
     return await axios.get(`${import.meta.env.VITE_SV}/product/discount`)
-}
+  },
+  getProductByCategoryAndPagination: async (categoryId:string, page:number, size: number) => {
+    return await axios.get(`${import.meta.env.VITE_SV}/product/getProductByCategory/${categoryId}/${page}/${size}`)
+  }
 };
 

@@ -1,0 +1,132 @@
+.all-products-title {
+  text-align: center;
+  font-weight: bold;
+}
+.all-products {
+  display: flex;
+  
+  .sidebar {
+    width: 25%;
+    padding: 20px;
+    background-color: #f8f8f8;
+
+    .sort-options, .filter-options, .search {
+      margin-bottom: 20px;
+    }
+
+    button, select, input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+  }
+
+  .product-grid {
+    width: 75%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+
+    .product-card {
+      border: 1px solid #eee;
+      border-radius: 8px;
+      // overflow: hidden;
+      position: relative;
+
+      .product-image {
+        position: relative;
+
+        img {
+          // width: 100%;
+          height: 200px;
+          object-fit: cover;
+          transition: opacity 0.3s ease;
+        }
+
+        .new-label {
+          position: absolute;
+          top: 10px;
+          left: 10px;
+          background-color: #4caf50;
+          color: white;
+          padding: 2px 8px;
+          border-radius: 4px;
+        }
+
+        .quick-view-button {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          background: none;
+          border: none;
+          font-size: 20px;
+          cursor: pointer;
+        }
+
+        .quick-view-button {
+          top: 40px;
+        }
+
+        .add-to-cart {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          padding: 10px;
+          background-color: #000;
+          color: white;
+          border: none;
+          cursor: pointer;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+      }
+
+      &:hover {
+        .product-image {
+          img {
+            opacity: 0.7;
+          }
+
+          .add-to-cart {
+            opacity: 1;
+          }
+        }
+      }
+
+      .product-info {
+        padding: 10px;
+
+        h3 {
+          margin: 0 0 5px;
+          font-size: 16px;
+        }
+
+        .price {
+          color: #e44d26;
+          font-weight: bold;
+        }
+
+        .rating {
+          color: #ffc107;
+          display: flex;
+          justify-content: space-between;
+
+          .review-count {
+            color: #666;
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+
+  .pagination {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+}
