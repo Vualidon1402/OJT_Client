@@ -78,6 +78,10 @@ function ProductList() {
     navigate(`/product-details/${product.id}`, { state: { product } });
   };
 
+  const handleViewAllProducts = () => {
+    navigate("/all-product");
+  };
+
   return (
     <div className="product-list">
       <div className="product-list-header">
@@ -100,8 +104,8 @@ onClick={() => handleSeeDetails(product)}
               <p className="price">
                 {product.productDetails.length > 0
                   ? product.productDetails.reduce((acc, curr) =>
-                      acc.discountPrice > curr.discountPrice ? acc : curr
-                    ).discountPrice.toLocaleString()
+                    acc.discountPrice > curr.discountPrice ? acc : curr
+                  ).discountPrice.toLocaleString()
                   : "N/A"}
                 đ
               </p>
@@ -113,9 +117,8 @@ onClick={() => handleSeeDetails(product)}
                 </div>
                 <div className="favorite-button">
                   <button
-                    className={`favorite-button ${
-                      favorites[product.id] ? "active" : ""
-                    }`}
+                    className={`favorite-button ${favorites[product.id] ? "active" : ""
+                      }`}
                     onClick={() => toggleFavorite(product.id)}
                   >
                     {favorites[product.id] ? "♥" : "♡"}
@@ -126,7 +129,9 @@ onClick={() => handleSeeDetails(product)}
           </div>
         ))}
       </div>
-      <button className="view-all-button">View All Products</button>
+      <button className="view-all-button" onClick={handleViewAllProducts}>
+        View All Products
+      </button>
     </div>
   );
 }
