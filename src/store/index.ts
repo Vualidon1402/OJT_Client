@@ -29,6 +29,7 @@ import {
   VoucherState,
 } from "./slices/voucher.slice";
 import { discounteventAction, discounteventReducer, DiscountEventState } from "./slices/discountevent.slice";
+import { cartAction, cartReducer, CartState } from "./slices/cart.slice";
 
 export type StoreType = {
   categoryStore: CategoryState;
@@ -40,6 +41,7 @@ export type StoreType = {
   wistListStore: WishListState;
   voucherStore: VoucherState;
   discountEventStore: DiscountEventState;
+  cartStore: CartState;
 };
 
 const RootReducer = combineReducers({
@@ -52,6 +54,8 @@ const RootReducer = combineReducers({
   wistListStore: wishListReducer,
   voucherStore: voucherReducer,
   discountEventStore: discounteventReducer,
+  cartStore: cartReducer,
+
 });
 
 const store = configureStore({
@@ -69,5 +73,7 @@ store.dispatch(configAction.findAllThunk());
 store.dispatch(wishListActions.findAllThunk());
 store.dispatch(voucherAction.findAllThunk());
 store.dispatch(discounteventAction.findAllThunk());
+store.dispatch(cartAction.findAllThunk());
+
 
 export default store;

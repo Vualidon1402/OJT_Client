@@ -1,7 +1,9 @@
 
 import './axios.instance'
+import { addressApi } from './modules/address';
 import { bannerApi } from './modules/banner';
 import { brandApi } from './modules/brand';
+import { cartApi } from './modules/cart';
 import { category } from './modules/category';
 import { colorApi } from './modules/color';
 import { configApi } from './modules/config';
@@ -23,7 +25,8 @@ export default {
   productDetail: productDetailApi,
   wishlist: wishListApi,
   voucher: vouchertApi,
-  discount: discountApi 
-
+  discount: discountApi,
+  cart: cartApi,
+  address: addressApi,
 };
 

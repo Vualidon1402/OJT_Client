@@ -16,11 +16,13 @@ import ContactPage from "@/pages/home/contact/ContactPage";
 import About from "@/pages/home/about/About";
 
 import ProductDetail from "@/pages/admin/pages/product-manager/components/product-detail/ProductDetail";
-import ProductDetails from "@/pages/home/homePage/category/components/ProductDetails";
+
 import Profile from "@/pages/home/pages/components/userLogin/profile/Profile";
 import OrderHistory from "@/pages/home/pages/components/userLogin/order/OrderHistory";
 import Voucher from "@/pages/admin/pages/vouchers-manager/Voucher";
 import DiscountEvent from "@/pages/admin/pages/vouchers-manager/DiscountEvents";
+
+import ProductDetails from "@/pages/home/homePage/category/components/ProductDetails";
 
 export default function index() {
   return (
@@ -34,6 +36,7 @@ export default function index() {
               () => import("@/pages/home/homePage/wishlist/Wishlist")
             )}
           />
+          <Route path="category/:id" element={<ProductDetails></ProductDetails>}></Route>
           {/* /:id */}
           <Route
             path="/productdetails"

@@ -1,35 +1,31 @@
 import React, { useState } from "react";
 import "./BillingDetails.scss";
+import { useSelector } from "react-redux";
+import { StoreType } from "@/store";
+import apis from "@/apis";
 
-interface Product {
-  name: string;
-  price: number;
-  image: string;
-}
+
 
 const BillingDetails: React.FC = () => {
-  const [billingInfo, setBillingInfo] = useState({
-    firstName: "",
-    companyName: "",
-    streetAddress: "",
-    apartment: "",
-    townCity: "",
-    phoneNumber: "",
-    emailAddress: "",
-    saveInfo: false,
-  });
+  const cartStore = useSelector((store: StoreType) => store.cartStore.data);
+  console.log("cartStore", cartStore);
+
+   const [billingInfo, setBillingInfo] = useState({
+     userId: "",
+     receiveName: "",
+     streetAddress: "",
+     district: "",
+     townCity: "",
+     province: "",
+     phone: "",
+     priority: false,
+   });
 
   const [paymentMethod, setPaymentMethod] = useState("cash");
   const [couponCode, setCouponCode] = useState("");
 
-  const products: Product[] = [
-    { name: "LCD Monitor", price: 650, image: "/path/to/lcd-monitor.png" },
-    { name: "H1 Gamepad", price: 1100, image: "/path/to/h1-gamepad.png" },
-  ];
 
-  const subtotal = products.reduce((sum, product) => sum + product.price, 0);
-  const shipping = "Free";
-  const total = subtotal;
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -45,9 +41,15 @@ const BillingDetails: React.FC = () => {
   };
 
   const handlePlaceOrder = () => {
+    
+    const res = apis.address.addressAll(billingInfo);
     // Implement order placement logic here
     console.log("Placing order with billing info:", billingInfo);
   };
+
+  const subtotal = cartStore?.reduce((acc, product) => {
+    return acc + product.productDetail.discountPrice * product.quantity;
+  }, 0);
 
   return (
     <div className="billing-details">
@@ -58,7 +60,7 @@ const BillingDetails: React.FC = () => {
             type="text"
             name="firstName"
             placeholder="First Name*"
-            value={billingInfo.firstName}
+            value={billingInfo.receiveName}
             onChange={handleInputChange}
             required
           />
@@ -119,24 +121,27 @@ const BillingDetails: React.FC = () => {
           </label>
         </div>
         <div className="order-summary">
-          {products.map((product, index) => (
+          {cartStore?.map((product, index) => (
             <div key={index} className="product-item">
-              <img src={product.image} alt={product.name} />
-              <span>{product.name}</span>
-              <span>${product.price}</span>
+              <img src={product.productDetail.image} alt={product.name} />
+              <span>
+                Unit Price:{" "}
+                {product.productDetail.discountPrice.toLocaleString()}đ
+              </span>
+              <span>Quantity: {product.quantity}</span>
             </div>
           ))}
           <div className="subtotal">
             <span>Subtotal:</span>
-            <span>${subtotal}</span>
+            <span>{subtotal?.toLocaleString()}đ</span>
           </div>
           <div className="shipping">
             <span>Shipping:</span>
-            <span>{shipping}</span>
+            {/* <span>{shipping}</span> */}
           </div>
           <div className="total">
             <span>Total:</span>
-            <span>${total}</span>
+            <span> {subtotal?.toLocaleString()}đ</span>
           </div>
           <div className="payment-methods">
             <label>
@@ -161,10 +166,22 @@ const BillingDetails: React.FC = () => {
             </label>
           </div>
           <div className="payment-icons">
-            <img src="/path/to/bank-icon.png" alt="Bank" />
-            <img src="/path/to/visa-icon.png" alt="Visa" />
-            <img src="/path/to/mastercard-icon.png" alt="Mastercard" />
-            <img src="/path/to/gpay-icon.png" alt="Google Pay" />
+            <img
+              src="https://bidv.com.vn/wps/wcm/connect/81f9f9c1-bb6d-42a3-80b6-600a80b35b3b/17.+V%C3%AD+VNPay.png?MOD=AJPERES&CACHEID=ROOTWORKSPACE-81f9f9c1-bb6d-42a3-80b6-600a80b35b3b-omlTcDq"
+              alt="Bank"
+            />
+            <img
+              src="https://onestop.payoo.vn/img/payment/icon/zalopay.png?v=2.65"
+              alt="Visa"
+            />
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgI6LpG25dSVbN47hE1SeBgNiqbaPzL6nc7w&s"
+              alt="Mastercard"
+            />
+            <img
+              src="https://file.hstatic.net/1000001117/file/shopeepay_2024_a5b50829e6c645f683dc6507d8c7413b.png"
+              alt="Google Pay"
+            />
           </div>
           <div className="coupon">
             <input

@@ -45,6 +45,7 @@ const findAllThunk = createAsyncThunk(
   async (userId: number | undefined, { getState }) => {
     const state = getState() as StoreType;
     const userStore = state.userStore.data;
+  
     if (!userStore || !userStore.id) {
       console.error("UserStore or UserStore.id is null or undefined");
       return [];
@@ -59,6 +60,8 @@ const findAllThunk = createAsyncThunk(
     }
   }
 );
+
+
 
 export const wishListReducer = wishListSlice.reducer;
 export const wishListActions = {

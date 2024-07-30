@@ -1,58 +1,95 @@
-import React, { useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useEffect, useState } from "react";
 import "./ShoppingCart.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { StoreType } from "@/store";
 
-interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-  image: string;
-}
+import apis from "@/apis";
+import { ApplyVoucher } from "@/store/slices/voucher.slice";
+import { showToast } from "@/util/toast";
+import { cartAction } from "@/store/slices/cart.slice";
 
 const ShoppingCart: React.FC = () => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([
-    {
-      id: 1,
-      name: "H1 Gamepad",
-      price: 550,
-      quantity: 2,
-      image: "/path/to/gamepad-image.jpg",
-    },
-  ]);
+  const dispatch = useDispatch();
+
+  const cartStore = useSelector((store: StoreType) => store.cartStore.data);
+
   const [couponCode, setCouponCode] = useState("");
+  const [totalAmount, setTotalAmount] = useState<number | undefined>(0);
+  const [totalAmounts, setTotalAmounts] = useState<number | undefined>(0);
+  const [voucherDiscount, setVoucherDiscount] = useState(0);
 
-  const updateQuantity = (id: number, newQuantity: number) => {
-    setCartItems((items) =>
-      items.map((item) =>
-        item.id === id ? { ...item, quantity: Math.max(1, newQuantity) } : item
-      )
-    );
+  useEffect(() => {
+    const calculatedTotal =
+      cartStore?.reduce((total, item) => {
+        return total + item.productDetail.discountPrice * item.quantity;
+      }, 0) || 0;
+    setTotalAmounts(calculatedTotal);
+    setTotalAmount(calculatedTotal); // Thêm dòng này
+  }, [cartStore]);
+
+  const handleApplyCoupon = async () => {
+    const voucher: ApplyVoucher = {
+      voucherCode: couponCode,
+      totalAmount: totalAmount,
+    };
+
+    try {
+      const result = await apis.voucher.applyVoucher(voucher);
+      if (result && result.data) {
+        const discountAmount = result.data;
+        setVoucherDiscount(discountAmount);
+        setTotalAmount((prevTotal: any) =>
+          Math.max(0, prevTotal - discountAmount)
+        );
+      } else {
+        alert("Invalid coupon code");
+      }
+    } catch (error: any) {
+      console.error("Error applying voucher:", error);
+      showToast.error(error.response.data);
+    }
   };
 
-  const subtotal = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
+  const handleUpdateQuantity = async(itemId: number, newQuantity: number) => {
+   
+    if (newQuantity < 1) return;
+
+    // const res = await apis.cart.increaseQuantity(itemId, newQuantity);
+
+    dispatch(cartAction.updateQuantity({ id: itemId, quantity: newQuantity }));
+  };
+
+  const newQuantitys = useSelector((state) =>
+    state?.cartStore.data.map((item: any) => item.quantity)
   );
-  const shipping = "Free";
-  const total = subtotal;
-
-  const handleApplyCoupon = () => {
-    // Implement coupon logic here
-    console.log("Applying coupon:", couponCode);
-  };
-
-  const handleUpdateCart = () => {
-    // Implement cart update logic here
-    console.log("Updating cart");
-  };
-
-  const handleProceedToCheckout = () => {
-    // Implement checkout logic here
-    console.log("Proceeding to checkout");
+  const id = useSelector((state) =>
+    state?.cartStore.data.map((item: any) => item.id)
+  );
+ const firstId = id[0];
+  const firstQuantity = newQuantitys[0];
+  
+  const handleProceedToCheckout = async () => {
+    const data = {
+      id: firstId,
+      quantity: firstQuantity,
+    };
+    console.log("data", data);
+    try{
+      const res = await apis.cart.updateCartItem(data);
+      console.log("res", res.data);
+      window.location.href = "/checkout";
+    }catch(error:any){
+      console.error("Error updating cart item:", error);
+      showToast.error(error.response.data);
+    }
+   
+    // window.location.href = "/checkout";
   };
 
   return (
     <div className="shopping-cart">
+      <div id="fui-toast"></div>
       <table>
         <thead>
           <tr>
@@ -63,17 +100,22 @@ const ShoppingCart: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {cartItems.map((item) => (
+          {cartStore?.map((item) => (
             <tr key={item.id}>
               <td>
-                <img src={item.image} alt={item.name} />
-                <span>{item.name}</span>
+                <img
+                  src={item.productDetail.image}
+                  alt={item.productDetail.productDetailName}
+                />
+                <span>{item.productDetail.productDetailName}</span>
               </td>
-              <td>${item.price}</td>
+              <td>{item.productDetail.discountPrice.toLocaleString()}đ</td>
               <td>
                 <div className="quantity-control">
                   <button
-                    onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                    onClick={() =>
+                      handleUpdateQuantity(item.id, item.quantity - 1)
+                    }
                   >
                     -
                   </button>
@@ -81,28 +123,28 @@ const ShoppingCart: React.FC = () => {
                     type="number"
                     value={item.quantity}
                     onChange={(e) =>
-                      updateQuantity(item.id, parseInt(e.target.value))
+                      handleUpdateQuantity(item.id, parseInt(e.target.value))
                     }
                   />
                   <button
-                    onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                    onClick={() =>
+                      handleUpdateQuantity(item.id, item.quantity + 1)
+                    }
                   >
                     +
                   </button>
                 </div>
               </td>
-              <td>${item.price * item.quantity}</td>
+              <td>
+                {(
+                  item.productDetail.discountPrice * item.quantity
+                ).toLocaleString()}
+                đ
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
-
-      <div className="cart-actions">
-        <button className="return-to-shop">Return To Shop</button>
-        <button className="update-cart" onClick={handleUpdateCart}>
-          Update Cart
-        </button>
-      </div>
 
       <div className="cart-summary">
         <div className="coupon-section">
@@ -118,15 +160,15 @@ const ShoppingCart: React.FC = () => {
           <h3>Cart Total</h3>
           <div className="total-row">
             <span>Subtotal:</span>
-            <span>${subtotal}</span>
+            <span> {totalAmounts?.toLocaleString()}đ</span>
           </div>
           <div className="total-row">
-            <span>Shipping:</span>
-            <span>{shipping}</span>
+            <span>Voucher:</span>
+            <span>{voucherDiscount?.toLocaleString()}đ</span>
           </div>
           <div className="total-row">
             <span>Total:</span>
-            <span>${total}</span>
+            <span>{totalAmount?.toLocaleString()}đ</span>
           </div>
           <button
             className="proceed-to-checkout"
